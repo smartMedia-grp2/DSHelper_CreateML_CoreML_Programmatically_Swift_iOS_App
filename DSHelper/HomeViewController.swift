@@ -9,7 +9,7 @@ class HomeViewController: UIViewController {
     var captureSession = AVCaptureSession()
     var cameraImageView = UIImageView()
     
-    lazy var classficationRequset: VNCoreMLRequest = {
+    lazy var classificationRequset: VNCoreMLRequest = {
         do {
             let model = try VNCoreMLModel(for: dsClassifier(configuration: MLModelConfiguration()).model)
             let request = VNCoreMLRequest(model: model, completionHandler: { [weak self]
@@ -20,6 +20,7 @@ class HomeViewController: UIViewController {
         } catch {
             fatalError("Fail to load ML model: \(error)")
         }
+        print("classificationRequset OK")
     }()
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,13 +75,15 @@ class HomeViewController: UIViewController {
                 print("Unable to classify image")
                 return
             }
-            
-            let classfications = results as! [VNClassificationObservation]
-            
-            if classfications.isEmpty{
+            print("results OK")
+
+            let classifications = results as! [VNClassificationObservation]
+            print("classifications OK")
+
+            if classifications.isEmpty{
                 print("Nothing recognized")
             } else {
-                guard let bestAnswer = classfications.first else {
+                guard let bestAnswer = classifications.first else {
                     print("bestAnswer OK")
                     return
                 }
@@ -102,7 +105,7 @@ class HomeViewController: UIViewController {
                     print("showScanned OK")
                 }
                 
-                var DSDesc = String()
+                var DSDesc = ""
                 // Matching
                 // Our hardcoded data provides more accurate and understandable information, avoids misrecognition of small text in low light and handshake conditions, and also makes complex meanings easier
                 if (predictedDS == "001"){
@@ -124,15 +127,17 @@ class HomeViewController: UIViewController {
                 }
                 
                 self.classifierLabel = DSDesc
+                print("self.classifierLabel OK")
                 
-                let topClassifications = classfications.prefix(3)
-                let descriptions = topClassifications.map { classfications in
+                let topClassifications = classifications.prefix(3)
+                let descriptions = topClassifications.map { classifications in
                     
                     // (%.2f) %@ : percentageFloorTo2Decimal precentageSymbol noun
-                    return String(format: " (%.2f) %@", classfications.confidence, classfications.identifier)
+                    return String(format: " (%.2f) %@", classifications.confidence, classifications.identifier)
                 }
                 print("Classification:\n" + descriptions.joined(separator: "\n"))
                 
+                print("classifications is not empty")
             }
             print("DispatchQueue.main.async OK")
         }
@@ -155,7 +160,7 @@ extension HomeViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
         
         do{
-            try imageRequestHandler.perform([self.classficationRequset])
+            try imageRequestHandler.perform([self.classificationRequset])
         }catch{
             print(error)
         }
