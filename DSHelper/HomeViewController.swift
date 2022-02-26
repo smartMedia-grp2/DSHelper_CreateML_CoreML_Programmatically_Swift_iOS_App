@@ -25,6 +25,7 @@ class HomeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         captureLiveVideo()
+        print("viewDidAppear OK")
     }
     
     override func viewDidLoad() {
@@ -32,6 +33,7 @@ class HomeViewController: UIViewController {
         HomeView()
         
         UserDefaults.standard.set(classifierLabel, forKey: "Key") //setObject
+        print("viewDidLoad OK")
     }
     
     func captureLiveVideo() {
@@ -59,22 +61,31 @@ class HomeViewController: UIViewController {
         cameraImageView.layer.addSublayer(cameraPreviewLayer)
         
         captureSession.startRunning()
+        
+        print("captureLiveVideo OK")
     }
     
     /// Updates the UI with the results of the classification.
     /// - Tag: ProcessClassifications
     func processClassifications(for request: VNRequest, error: Error?) {
         DispatchQueue.main.async {
+            
             guard let results = request.results else{
                 print("Unable to classify image")
                 return
             }
+            
             let classfications = results as! [VNClassificationObservation]
+            
             if classfications.isEmpty{
                 print("Nothing recognized")
             } else {
-                guard let bestAnswer = classfications.first else { return }
-                var predictedDS = bestAnswer.identifier
+                guard let bestAnswer = classfications.first else {
+                    print("bestAnswer OK")
+                    return
+                }
+                
+                let predictedDS = bestAnswer.identifier
                 
                 func showScanned(){
                     if #available(iOS 13.0, *) {
@@ -88,6 +99,7 @@ class HomeViewController: UIViewController {
                         // Fallback on earlier versions
                         fatalError("Please update to iOS 13.0 or above")
                     }
+                    print("showScanned OK")
                 }
                 
                 var DSDesc = String()
@@ -96,15 +108,19 @@ class HomeViewController: UIViewController {
                 if (predictedDS == "001"){
                     DSDesc = "Sundown Naturals, Calcium, Magnesium & Zinc, 100 Caplets\n\nSupplement Facts\n\nServing Size: 2 Capsules\nServings Per Container: 200\n\nAmount Per Serving\nL-Leucine    500 mg\nL-Isoleucine    250 mg\nL-Valine    250 mg\n\nSuggested use\nConsume 2 BCAA 1000 Capsules between meals, 35-45 minutes before workouts, and/or immediately after workouts. Intended for use in healthy adults and as part of a healthy, balanced diet and exercise program."
                     showScanned()
+                    print("001")
                 } else if (predictedDS == "002"){
                     DSDesc = "Source Naturals, B-50 Complex, 50 mg, 100 Tablets\n\nSupplement Facts\n\nServing Size: 1 Tablet\n\nAmount Per Serving\nThiamin (as mononitrate) (vitamin B-1)    50 mg\nRiboflavin (vitamin B-2)    50 mg\nNiacin (as niacinamide)    50 mg\nVitamin B-6 (as pyridoxine HCI)    50 mg\nFolate (as folic acid)    1,360 mcg DFE(800 mcg folic acid)\nVitamin B-12 (as cyanocobalamin)    50 mcg\nBiotin    50 mcg\nPantothenic Acid (as calcium D-pantothenate)    100 mg\nCholine (as choline bitartrate)    50 mg\nInositol    50 mg\nPABA (as para-amino benzoic acid)    30 mg\n\nSuggested use\n1 tablet 1 to 2 times daily."
                     showScanned()
+                    print("002")
                 } else if (predictedDS == "003"){
                     DSDesc = "Solgar, Magnesium with Vitamin B6, 250 Tablets\n\nSupplement Facts\n\nServing Size: 3 Tablets\nServings Per Container: 83\n\nAmount Per Serving\nVitamin B6 (as pyridoxine HCl)    25 mg\nMagnesium (as magnesium oxide)    400 mg\n\nSuggested use\nAs a dietary supplement for adults, take three (3) tablets daily, preferably with a meal or as directed by a healthcare practitioner."
                     showScanned()
+                    print("003")
                 } else if (predictedDS == "004"){
                     DSDesc = "California Gold Nutrition, Ferrochel Iron (Bisglycinate), 36 mg, 90 Veggie Capsules\n\nSupplement Facts\n\nServing Size: 1 Capsule\nServings Per Container: 90\n\nAmount Per Serving\nIron (as Ferrous Bisglycinate Chelate)    36 mg\n\nSuggested use\nTake 1 capsule daily without food. Best when taken as directed by a qualified healthcare professional."
                     showScanned()
+                    print("004")
                 }
                 
                 self.classifierLabel = DSDesc
@@ -114,15 +130,17 @@ class HomeViewController: UIViewController {
                     
                     // (%.2f) %@ : percentageFloorTo2Decimal precentageSymbol noun
                     return String(format: " (%.2f) %@", classfications.confidence, classfications.identifier)
-                    
                 }
                 print("Classification:\n" + descriptions.joined(separator: "\n"))
+                
             }
-            
+            print("DispatchQueue.main.async OK")
         }
+        print("processClassifications OK")
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
+        print("preferredStatusBarStyle OK")
         return .lightContent
     }
 }
@@ -141,6 +159,8 @@ extension HomeViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         }catch{
             print(error)
         }
+        
+        print("captureOutput OK")
     }
 }
 
