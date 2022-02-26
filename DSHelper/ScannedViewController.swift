@@ -3,28 +3,41 @@
 //  DSHelper
 //
 //  Created by Cyrus on 21/2/2022.
-//  Copyright © 2022 AppCoda. All rights reserved.
 //
 
 import UIKit
+import AVFoundation
 
 class ScannedViewController: UIViewController {
     
-    var DSDesc = UserDefaults.standard.string(forKey: "Key")
+    var DSDesc2 = UserDefaults.standard.string(forKey: "Key")
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         ScannedView()
+        
+        let utterance = AVSpeechUtterance(string: DSDesc2!)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+        utterance.rate = 0.1
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterance)
     }
     
-    @objc private func toBookmarksView(){
+    @objc private func toBookmarksView(){ // View present style 2
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "bookmarksView") as? BookmarksViewController else {
             return
         }
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isBeingDismissed {
+            UserDefaults.standard.set(false, forKey: "Key2") //Bool
+        }
     }
     
 
@@ -67,7 +80,7 @@ extension ScannedViewController{
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.text = DSDesc
+        label.text = DSDesc2
         parent.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 339).isActive = true

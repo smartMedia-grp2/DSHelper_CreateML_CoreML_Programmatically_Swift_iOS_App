@@ -1,10 +1,12 @@
 import UIKit
 import AVFoundation
+import VisionKit
 import Vision
 
 class HomeViewController: UIViewController {
     
     var classifierLabel = "Nothing was scanned"
+    var scanned = false
     
     var captureSession = AVCaptureSession()
     var cameraImageView = UIImageView()
@@ -91,16 +93,18 @@ class HomeViewController: UIViewController {
                 let predictedDS = bestAnswer.identifier
                 
                 func showScanned(){
-                    if #available(iOS 13.0, *) {
-//                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        if let vc = self.storyboard?.instantiateViewController(identifier: "scannedView") {
-//                            vc.isModalInPresentation = true
-//                            vc.modalPresentationStyle = .fullScreen
-                            self.present(vc, animated: true, completion: nil)
+                    if (self.scanned == false) {
+                        if #available(iOS 13.0, *) { // View present style 1
+    //                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            if let vc = self.storyboard?.instantiateViewController(identifier: "scannedView") {
+    //                            vc.isModalInPresentation = true
+    //                            vc.modalPresentationStyle = .fullScreen
+                                self.present(vc, animated: true, completion: nil)
+                            }
+                        } else {
+                            // Fallback on earlier versions
+                            fatalError("Please update to iOS 13.0 or above")
                         }
-                    } else {
-                        // Fallback on earlier versions
-                        fatalError("Please update to iOS 13.0 or above")
                     }
                     print("showScanned OK")
                 }
@@ -109,20 +113,32 @@ class HomeViewController: UIViewController {
                 // Matching
                 // Our hardcoded data provides more accurate and understandable information, avoids misrecognition of small text in low light and handshake conditions, and also makes complex meanings easier
                 if (predictedDS == "001"){
+                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
                     DSDesc = "Sundown Naturals, Calcium, Magnesium & Zinc, 100 Caplets\n\nSupplement Facts\n\nServing Size: 2 Capsules\nServings Per Container: 200\n\nAmount Per Serving\nL-Leucine    500 mg\nL-Isoleucine    250 mg\nL-Valine    250 mg\n\nSuggested use\nConsume 2 BCAA 1000 Capsules between meals, 35-45 minutes before workouts, and/or immediately after workouts. Intended for use in healthy adults and as part of a healthy, balanced diet and exercise program."
                     showScanned()
+                    self.scanned = true
+                    UserDefaults.standard.set(false, forKey: "Key2") //Bool
                     print("001")
                 } else if (predictedDS == "002"){
+                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
                     DSDesc = "Source Naturals, B-50 Complex, 50 mg, 100 Tablets\n\nSupplement Facts\n\nServing Size: 1 Tablet\n\nAmount Per Serving\nThiamin (as mononitrate) (vitamin B-1)    50 mg\nRiboflavin (vitamin B-2)    50 mg\nNiacin (as niacinamide)    50 mg\nVitamin B-6 (as pyridoxine HCI)    50 mg\nFolate (as folic acid)    1,360 mcg DFE(800 mcg folic acid)\nVitamin B-12 (as cyanocobalamin)    50 mcg\nBiotin    50 mcg\nPantothenic Acid (as calcium D-pantothenate)    100 mg\nCholine (as choline bitartrate)    50 mg\nInositol    50 mg\nPABA (as para-amino benzoic acid)    30 mg\n\nSuggested use\n1 tablet 1 to 2 times daily."
                     showScanned()
+                    self.scanned = true
+                    UserDefaults.standard.set(false, forKey: "Key2") //Bool
                     print("002")
                 } else if (predictedDS == "003"){
+                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
                     DSDesc = "Solgar, Magnesium with Vitamin B6, 250 Tablets\n\nSupplement Facts\n\nServing Size: 3 Tablets\nServings Per Container: 83\n\nAmount Per Serving\nVitamin B6 (as pyridoxine HCl)    25 mg\nMagnesium (as magnesium oxide)    400 mg\n\nSuggested use\nAs a dietary supplement for adults, take three (3) tablets daily, preferably with a meal or as directed by a healthcare practitioner."
                     showScanned()
+                    self.scanned = true
+                    UserDefaults.standard.set(false, forKey: "Key2") //Bool
                     print("003")
                 } else if (predictedDS == "004"){
+                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
                     DSDesc = "California Gold Nutrition, Ferrochel Iron (Bisglycinate), 36 mg, 90 Veggie Capsules\n\nSupplement Facts\n\nServing Size: 1 Capsule\nServings Per Container: 90\n\nAmount Per Serving\nIron (as Ferrous Bisglycinate Chelate)    36 mg\n\nSuggested use\nTake 1 capsule daily without food. Best when taken as directed by a qualified healthcare professional."
                     showScanned()
+                    self.scanned = true
+                    UserDefaults.standard.set(false, forKey: "Key2") //Bool
                     print("004")
                 }
                 

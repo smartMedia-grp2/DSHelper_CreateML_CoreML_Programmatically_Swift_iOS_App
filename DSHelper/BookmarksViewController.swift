@@ -3,7 +3,6 @@
 //  DSHelper
 //
 //  Created by Cyrus on 21/2/2022.
-//  Copyright © 2022 AppCoda. All rights reserved.
 //
 
 import UIKit
