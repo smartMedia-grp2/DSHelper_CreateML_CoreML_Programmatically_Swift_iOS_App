@@ -19,8 +19,8 @@ class ScannedViewController: UIViewController {
         ScannedView()
         
         let utterance = AVSpeechUtterance(string: DSDesc2!)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-        utterance.rate = 0.1
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = 0.25
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.speak(utterance)
     }

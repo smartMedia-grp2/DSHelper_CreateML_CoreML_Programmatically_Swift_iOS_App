@@ -16,9 +16,10 @@ class BookmarksViewController: UIViewController {
         BookmarksView()
     }
 
-    @objc private func backToPreviousView(){
+    @IBAction private func backToPreviousView(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
     }
+    
     /*
     // MARK: - Navigation
 
@@ -43,7 +44,7 @@ extension BookmarksViewController{
         let arrowBackIcon = UIButton()
         arrowBackIcon.setBackgroundImage(UIImage(named: "arrow_back_ios_new_black_24dp"), for: .normal)
         arrowBackIcon.frame = CGRect(x: 0, y: 0, width: 72, height: 72)
-        arrowBackIcon.addTarget(self, action: #selector(backToPreviousView), for: .touchUpInside)
+        arrowBackIcon.addTarget(self, action: #selector(backToPreviousView(_:)), for: .touchUpInside)
         parent.addSubview(arrowBackIcon)
         arrowBackIcon.translatesAutoresizingMaskIntoConstraints = false
         arrowBackIcon.widthAnchor.constraint(equalToConstant: 72).isActive = true

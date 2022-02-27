@@ -27,15 +27,25 @@ class HomeViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         captureLiveVideo()
+        
         print("viewDidAppear OK")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         HomeView()
         
         UserDefaults.standard.set(classifierLabel, forKey: "Key") //setObject
+        
+        let utterance = AVSpeechUtterance(string: "Welcome to DS Helper! Please scan information printed on dietary supplements. Welcome to DS Helper! Please scan information printed on dietary supplements.")
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = 0.25
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(utterance)
+        
         print("viewDidLoad OK")
     }
     
