@@ -5,7 +5,7 @@ import Vision
 
 class HomeViewController: UIViewController {
     
-    var classifierLabel = "Welcome to DSHelper!"
+    var classifierLabel = "Welcome to DS Helper!"
     var scanned = false
     
     var captureSession = AVCaptureSession()

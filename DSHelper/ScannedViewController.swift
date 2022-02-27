@@ -10,7 +10,7 @@ import AVFoundation
 
 class ScannedViewController: UIViewController {
     
-    var DSDesc = UserDefaults.standard.string(forKey: "Key") ?? "Welcome to DSHelper!"
+    var DSDesc = UserDefaults.standard.string(forKey: "Key") ?? "Welcome to DS Helper!"
     var DS_ID = UserDefaults.standard.string(forKey: "DS_ID") ?? "000"
     
     var voiceIcon = UIButton()
