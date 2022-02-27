@@ -5,7 +5,7 @@ import Vision
 
 class HomeViewController: UIViewController {
     
-    var classifierLabel = "Nothing was scanned"
+    var classifierLabel = "Welcome to DSHelper!"
     var scanned = false
     
     var captureSession = AVCaptureSession()
@@ -128,6 +128,7 @@ class HomeViewController: UIViewController {
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(false, forKey: "Key2") //Bool
+                    UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("001")
                 } else if (predictedDS == "002"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
@@ -135,6 +136,7 @@ class HomeViewController: UIViewController {
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(false, forKey: "Key2") //Bool
+                    UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("002")
                 } else if (predictedDS == "003"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
@@ -142,6 +144,7 @@ class HomeViewController: UIViewController {
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(false, forKey: "Key2") //Bool
+                    UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("003")
                 } else if (predictedDS == "004"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
@@ -149,6 +152,7 @@ class HomeViewController: UIViewController {
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(false, forKey: "Key2") //Bool
+                    UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("004")
                 }
                 

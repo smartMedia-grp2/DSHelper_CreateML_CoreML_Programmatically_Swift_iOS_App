@@ -8,12 +8,63 @@
 import UIKit
 
 class BookmarksViewController: UIViewController {
+    
+    var DSDesc2 = UserDefaults.standard.string(forKey: "Key")!
+    
+    var DSArray = UserDefaults.standard.stringArray(forKey: "DSArray")!
+    var DSDescArray = UserDefaults.standard.stringArray(forKey: "DSDescArray")!
+
+    
+    let scrollView: UIScrollView = {
+        let v = UIScrollView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         BookmarksView()
+        
+        let DSArrayNoDuplicates:Array = Array(Set(DSArray))
+        print(DSArrayNoDuplicates)
+        let DSDescArrayNoDuplicates:Array = Array(Set(DSDescArray))
+        print(DSDescArrayNoDuplicates)
+        
+        // add the scroll view to self.view
+        self.view.addSubview(scrollView)
+        // constrain the scroll view to 8-pts on each side
+        scrollView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 247).isActive = true
+        scrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+        var path: [AnyObject] = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true) as [AnyObject]
+            let folder: String = path[0] as! String
+            NSLog("Your NSUserDefaults are stored in this folder: %@/Preferences", folder)
+        
+        var ROW = 0
+        var COL = 0
+        var twoUp = 0
+        for i in 0 ..< DSArrayNoDuplicates.count {
+            // Add card(s)
+            addCardView(txt: "\(DSDescArrayNoDuplicates[i])", row: CGFloat(Int(ROW)), col: CGFloat(Int(COL)), imgName: "\(DSArrayNoDuplicates[i])")
+            // Using same row twice, then increment
+            if (twoUp < 1){
+                twoUp = twoUp + 1
+            } else {
+                ROW = ROW + 1
+                twoUp = 0
+            }
+            // Check Column is 1 or 0
+            if (COL == 0){
+                COL = COL + 1
+            } else {
+                COL = 0
+            }
+        }
+        
     }
 
     @IBAction private func backToPreviousView(_ sender: UIButton){
@@ -29,6 +80,44 @@ class BookmarksViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    private func addCardView(txt: String, row: CGFloat, col: CGFloat, imgName: String){
+        // View
+        let view = UIView()
+        view.frame = CGRect(x: 0, y: 0, width: 155, height: 230)
+        view.layer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
+        view.layer.cornerRadius = 16
+        scrollView.addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: 155).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 230).isActive = true
+        view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: (col*172)+31).isActive = true
+        view.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: row*247).isActive = true
+        // Label
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 140, height: 80)
+        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        label.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.text = txt
+        scrollView.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.widthAnchor.constraint(equalToConstant: 140).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        label.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: (col*172)+43).isActive = true
+        label.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: (row*247)+130.5).isActive = true
+        // Image
+        let imgSrc:UIImage = UIImage(named: imgName)!
+        let img = UIImageView(image: imgSrc)
+        img.frame = CGRect(x: 0, y: 0, width: 119, height: 125)
+        scrollView.addSubview(img)
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.widthAnchor.constraint(equalToConstant: 119).isActive = true
+        img.heightAnchor.constraint(equalToConstant: 125).isActive = true
+        img.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: (col*172)+48).isActive = true
+        img.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: (row*247)+4).isActive = true
+    }
 
 }
 
@@ -115,49 +204,6 @@ extension BookmarksViewController{
         btn3.heightAnchor.constraint(equalToConstant: 30).isActive = true
         btn3.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 209).isActive = true
         btn3.topAnchor.constraint(equalTo: parent.topAnchor, constant: 190).isActive = true
-        
-        func addCardView(txt: String, row: CGFloat, col: CGFloat, imgName: String){
-            // View
-            let view = UIView()
-            view.frame = CGRect(x: 0, y: 0, width: 155, height: 230)
-            view.layer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
-            view.layer.cornerRadius = 16
-            parent.addSubview(view)
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.widthAnchor.constraint(equalToConstant: 155).isActive = true
-            view.heightAnchor.constraint(equalToConstant: 230).isActive = true
-            view.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: (col*172)+31).isActive = true
-            view.topAnchor.constraint(equalTo: parent.topAnchor, constant: (1+row)*247).isActive = true
-            // Label
-            let label = UILabel()
-            label.frame = CGRect(x: 0, y: 0, width: 140, height: 80)
-            label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-            label.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
-            label.numberOfLines = 0
-            label.lineBreakMode = .byWordWrapping
-            label.text = txt
-            parent.addSubview(label)
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.widthAnchor.constraint(equalToConstant: 140).isActive = true
-            label.heightAnchor.constraint(equalToConstant: 80).isActive = true
-            label.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: (col*172)+43).isActive = true
-            label.topAnchor.constraint(equalTo: parent.topAnchor, constant: (row*247)+377.5).isActive = true
-            // Image
-            let imgSrc:UIImage = UIImage(named: imgName)!
-            let img = UIImageView(image: imgSrc)
-            img.frame = CGRect(x: 0, y: 0, width: 119, height: 125)
-            parent.addSubview(img)
-            img.translatesAutoresizingMaskIntoConstraints = false
-            img.widthAnchor.constraint(equalToConstant: 119).isActive = true
-            img.heightAnchor.constraint(equalToConstant: 125).isActive = true
-            img.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: (col*172)+48).isActive = true
-            img.topAnchor.constraint(equalTo: parent.topAnchor, constant: (row*247)+251).isActive = true
             
-        }
-        addCardView(txt: "Sundown Naturals, Calcium, Magnesium & Zinc, 100 Caplets", row: 0, col: 0, imgName: "001")
-        addCardView(txt: "Source Naturals, B-50 Complex, 50 mg, 100 Tablets", row: 0, col: 1, imgName: "002")
-        addCardView(txt: "Solgar, Magnesium with Vitamin B6, 250 Tablets", row: 1, col: 0, imgName: "003")
-        addCardView(txt: "California Gold Nutrition, Ferrochel Iron (Bisglycinate), 36 mg, 90 Veggie Capsules", row: 1, col: 1, imgName: "004")
-        
     }
 }
