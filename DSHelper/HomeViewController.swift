@@ -1,6 +1,6 @@
+import Foundation
 import UIKit
 import AVFoundation
-import VisionKit
 import Vision
 
 class HomeViewController: UIViewController {
@@ -8,17 +8,16 @@ class HomeViewController: UIViewController {
     var classifierLabel = "Welcome to DS Helper!"
     var scanned = false
     
-    var captureSession = AVCaptureSession()
+    var captureSession = AVCaptureSession() // 创建捕捉会话
     var cameraImageView = UIImageView()
     
-    lazy var classificationRequset: VNCoreMLRequest = {
+    lazy var classificationRequest: VNCoreMLRequest = {
         do {
             let model = try VNCoreMLModel(for: dsClassifier(configuration: MLModelConfiguration()).model)
-            let request = VNCoreMLRequest(model: model, completionHandler: { [weak self]
+            return VNCoreMLRequest(model: model, completionHandler: { [weak self]
                 request, error in
                 self?.processClassifications(for: request, error: error)
             })
-            return request
         } catch {
             fatalError("Fail to load ML model: \(error)")
         }
@@ -56,6 +55,7 @@ class HomeViewController: UIViewController {
             fatalError("Fail to initialize the camera device")
         }
         // Define the device input and output
+        // 创建device input(捕捉设备输入)
         guard let deviceInput = try? AVCaptureDeviceInput(device: captureDevice) else {
             fatalError("Fail to retrieve device input")
         }
@@ -67,12 +67,14 @@ class HomeViewController: UIViewController {
         captureSession.addInput(deviceInput)
         captureSession.addOutput(deviceOutput)
         
+        // 添加预览图层
         // Add a video layer to the image view
         let cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         cameraPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         cameraPreviewLayer.frame = cameraImageView.layer.frame
         cameraImageView.layer.addSublayer(cameraPreviewLayer)
         
+        // 开始采集
         captureSession.startRunning()
         
         print("captureLiveVideo OK")
@@ -94,12 +96,14 @@ class HomeViewController: UIViewController {
 
             if classifications.isEmpty{
                 print("Nothing recognized")
+                return
+                
             } else {
+                
                 guard let bestAnswer = classifications.first else {
-                    print("bestAnswer OK")
+                    print("bestAnswer not OK")
                     return
                 }
-                
                 let predictedDS = bestAnswer.identifier
                 
                 func showScanned(){
@@ -118,7 +122,6 @@ class HomeViewController: UIViewController {
                     }
                     print("showScanned OK")
                 }
-                
                 var DSDesc = ""
                 // Matching
                 // Our hardcoded data provides more accurate and understandable information, avoids misrecognition of small text in low light and handshake conditions, and also makes complex meanings easier
@@ -155,15 +158,13 @@ class HomeViewController: UIViewController {
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("004")
                 }
-                
                 self.classifierLabel = DSDesc
                 print("self.classifierLabel OK")
                 
                 let topClassifications = classifications.prefix(3)
                 let descriptions = topClassifications.map { classifications in
-                    
-                    // (%.2f) %@ : percentageFloorTo2Decimal precentageSymbol noun
-                    return String(format: " (%.2f) %@", classifications.confidence, classifications.identifier)
+                    // "%.2f" means percentageFloorTo2Decimal a Float. "%@" would be a String
+                    return String(format: "%.2f %@", classifications.confidence, classifications.identifier)
                 }
                 print("Classification:\n" + descriptions.joined(separator: "\n"))
                 
@@ -190,7 +191,7 @@ extension HomeViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
         
         do{
-            try imageRequestHandler.perform([self.classificationRequset])
+            try imageRequestHandler.perform([self.classificationRequest])
         }catch{
             print(error)
         }

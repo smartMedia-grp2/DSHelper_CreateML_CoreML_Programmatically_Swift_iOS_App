@@ -11,7 +11,6 @@
 		6E50AFDE27C360ED0068ADB1 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E50AFDD27C360ED0068ADB1 /* BookmarksViewController.swift */; };
 		6E50AFE027C361C30068ADB1 /* ScannedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E50AFDF27C361C30068ADB1 /* ScannedViewController.swift */; };
 		6EA84E5527CA995800E65A89 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA84E5427CA995800E65A89 /* Vision.framework */; };
-		6EA84E5727CA996800E65A89 /* VisionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA84E5627CA996800E65A89 /* VisionKit.framework */; };
 		6EA84E5927CA997D00E65A89 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA84E5827CA997D00E65A89 /* AVFoundation.framework */; };
 		F4FB444D21A7923100939357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FB444C21A7923100939357 /* AppDelegate.swift */; };
 		F4FB445221A7923100939357 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4FB445021A7923100939357 /* Main.storyboard */; };
@@ -25,7 +24,6 @@
 		6E50AFDD27C360ED0068ADB1 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		6E50AFDF27C361C30068ADB1 /* ScannedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedViewController.swift; sourceTree = "<group>"; };
 		6EA84E5427CA995800E65A89 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
-		6EA84E5627CA996800E65A89 /* VisionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VisionKit.framework; path = System/Library/Frameworks/VisionKit.framework; sourceTree = SDKROOT; };
 		6EA84E5827CA997D00E65A89 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		F4FB444921A7923100939357 /* DSHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DSHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FB444C21A7923100939357 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,7 +40,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EA84E5527CA995800E65A89 /* Vision.framework in Frameworks */,
-				6EA84E5727CA996800E65A89 /* VisionKit.framework in Frameworks */,
 				6EA84E5927CA997D00E65A89 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,7 +51,6 @@
 			isa = PBXGroup;
 			children = (
 				6EA84E5827CA997D00E65A89 /* AVFoundation.framework */,
-				6EA84E5627CA996800E65A89 /* VisionKit.framework */,
 				6EA84E5427CA995800E65A89 /* Vision.framework */,
 			);
 			name = Frameworks;
