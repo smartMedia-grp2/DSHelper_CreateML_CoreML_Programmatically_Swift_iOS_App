@@ -9,7 +9,7 @@ class HomeViewController: UIViewController {
     var scanned = false
     
     var captureSession = AVCaptureSession() // 创建捕捉会话
-    var cameraImageView = UIImageView()
+    @IBOutlet var cameraImageView : UIImageView!
     
     lazy var classificationRequest: VNCoreMLRequest = {
         do {
@@ -28,14 +28,7 @@ class HomeViewController: UIViewController {
         super.viewDidAppear(animated)
         
         captureLiveVideo()
-        
-        print("viewDidAppear OK")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        HomeView()
+//        HomeView()
         
         UserDefaults.standard.set(classifierLabel, forKey: "Key") //setObject
         
@@ -44,6 +37,12 @@ class HomeViewController: UIViewController {
         utterance.rate = 0.25
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.speak(utterance)
+        
+        print("viewDidAppear OK")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         print("viewDidLoad OK")
     }
@@ -182,7 +181,7 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
-    func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         print("captureOutput start")
         connection.videoOrientation = .portrait
 
@@ -205,8 +204,9 @@ extension HomeViewController {
         
         let parent = self.view!
         
-        cameraImageView.frame = CGRect(x: 0, y: 0, width: 390, height: 844)
-        parent.addSubview(cameraImageView)
+//        cameraImageView.frame = CGRect(x: 0, y: 0, width: 390, height: 844)
+//        parent.addSubview(cameraImageView)
+//        captureLiveVideo()
         
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 390, height: 268)
@@ -292,6 +292,6 @@ extension HomeViewController {
         aIcon.heightAnchor.constraint(equalToConstant: 84).isActive = true
         aIcon.centerXAnchor.constraint(equalTo: parent.centerXAnchor, constant: 0).isActive = true
         aIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 230).isActive = true
-        
+
     }
 }
