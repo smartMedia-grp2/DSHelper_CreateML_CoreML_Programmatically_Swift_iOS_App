@@ -27,6 +27,7 @@ class BookmarksViewController: UIViewController {
         // Do any additional setup after loading the view.
         BookmarksView()
         
+        // Filter out duplicates in an array
         let DSArrayNoDuplicates:Array = Array(Set(DSArray))
         print(DSArrayNoDuplicates)
         let DSDescArrayNoDuplicates:Array = Array(Set(DSDescArray))
@@ -40,15 +41,16 @@ class BookmarksViewController: UIViewController {
         scrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         
+        // To find out where the UserDefaults folder is
         var path: [AnyObject] = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true) as [AnyObject]
             let folder: String = path[0] as! String
             NSLog("Your NSUserDefaults are stored in this folder: %@/Preferences", folder)
         
+        // Add cards algorithm
         var ROW = 0
         var COL = 0
         var twoUp = 0
         for i in 0 ..< DSArrayNoDuplicates.count {
-            // Add card(s)
             addCardView(txt: "\(DSDescArrayNoDuplicates[i])", row: CGFloat(Int(ROW)), col: CGFloat(Int(COL)), imgName: "\(DSArrayNoDuplicates[i])")
             // Using same row twice, then increment
             if (twoUp < 1){

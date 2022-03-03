@@ -5,11 +5,11 @@ import Vision
 
 class HomeViewController: UIViewController {
     
-    var classifierLabel = "Welcome to DS Helper!"
     var scanned = false
     
     var captureSession = AVCaptureSession() // 创建捕捉会话
-    @IBOutlet var cameraImageView : UIImageView!
+//    @IBOutlet var cameraImageView : UIImageView!
+    var cameraImageView = UIImageView()
     
     lazy var classificationRequest: VNCoreMLRequest = {
         do {
@@ -27,12 +27,10 @@ class HomeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        HomeView()
         captureLiveVideo()
-//        HomeView()
         
-        UserDefaults.standard.set(classifierLabel, forKey: "Key") //setObject
-        
-        let utterance = AVSpeechUtterance(string: "Welcome to DS Helper! Please scan information printed on dietary supplements. Welcome to DS Helper! Please scan information printed on dietary supplements.")
+        let utterance = AVSpeechUtterance(string: "Welcome to DS Helper! Please scan information printed on dietary supplements.")
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = 0.25
         let synthesizer = AVSpeechSynthesizer()
@@ -105,69 +103,96 @@ class HomeViewController: UIViewController {
                 }
                 let predictedDS = bestAnswer.identifier
                 
-                func showScanned(){
-                    if (self.scanned == false) {
-                        if #available(iOS 13.0, *) { // View present style 1
-    //                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                            if let vc = self.storyboard?.instantiateViewController(identifier: "scannedView") {
-    //                            vc.isModalInPresentation = true
-    //                            vc.modalPresentationStyle = .fullScreen
-                                self.present(vc, animated: true, completion: nil)
+                let observations = classifications.prefix(3)
+                
+                var prediction = Float()
+                let _: [()] = observations.map { observation in
+                    prediction = observation.confidence * 100
+//                    "%.2f" means percentageFloorTo2Decimal a Float. "%@" would be a String
+//                    return String(format: "(%.2f)%@", observation.confidence, observation.identifier)
+                }
+                
+                func classify(){
+                    
+                    print(prediction)
+                    
+                    func showScanned(){
+                        if (self.scanned == false) {
+                            if #available(iOS 13.0, *) { // View present style 1
+        //                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                if let vc = self.storyboard?.instantiateViewController(identifier: "scannedView") {
+        //                            vc.isModalInPresentation = true
+        //                            vc.modalPresentationStyle = .fullScreen
+                                    self.present(vc, animated: true, completion: nil)
+                                }
+                            } else {
+                                // Fallback on earlier versions
+                                fatalError("Please update to iOS 13.0 or above")
                             }
-                        } else {
-                            // Fallback on earlier versions
-                            fatalError("Please update to iOS 13.0 or above")
                         }
+                        print("showScanned OK")
                     }
-                    print("showScanned OK")
+                    
+                    // Matching
+                    // Our hardcoded data provides more accurate and understandable information, avoids misrecognition of small text in low light and handshake conditions, and also makes complex meanings easier
+                    if (predictedDS == "001"){
+                        self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                        let DSDesc = "Sundown Naturals, Calcium, Magnesium & Zinc, 100 Caplets - \(prediction)\n\nSupplement Facts\n\nServing Size: 2 Capsules\nServings Per Container: 200\n\nAmount Per Serving\nL-Leucine    500 mg\nL-Isoleucine    250 mg\nL-Valine    250 mg\n\nSuggested use\nConsume 2 BCAA 1000 Capsules between meals, 35-45 minutes before workouts, and/or immediately after workouts. Intended for use in healthy adults and as part of a healthy, balanced diet and exercise program."
+                        UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                        showScanned()
+                        self.scanned = true
+                        UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
+                        print("001")
+                    } else if (predictedDS == "002"){
+                        self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                        let DSDesc = "Source Naturals, B-50 Complex, 50 mg, 100 Tablets - \(prediction)\n\nSupplement Facts\n\nServing Size: 1 Tablet\n\nAmount Per Serving\nThiamin (as mononitrate) (vitamin B-1)    50 mg\nRiboflavin (vitamin B-2)    50 mg\nNiacin (as niacinamide)    50 mg\nVitamin B-6 (as pyridoxine HCI)    50 mg\nFolate (as folic acid)    1,360 mcg DFE(800 mcg folic acid)\nVitamin B-12 (as cyanocobalamin)    50 mcg\nBiotin    50 mcg\nPantothenic Acid (as calcium D-pantothenate)    100 mg\nCholine (as choline bitartrate)    50 mg\nInositol    50 mg\nPABA (as para-amino benzoic acid)    30 mg\n\nSuggested use\n1 tablet 1 to 2 times daily."
+                        UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                        showScanned()
+                        self.scanned = true
+                        UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
+                        print("002")
+                    } else if (predictedDS == "003"){
+                        self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                        let DSDesc = "Solgar, Magnesium with Vitamin B6, 250 Tablets - \(prediction)\n\nSupplement Facts\n\nServing Size: 3 Tablets\nServings Per Container: 83\n\nAmount Per Serving\nVitamin B6 (as pyridoxine HCl)    25 mg\nMagnesium (as magnesium oxide)    400 mg\n\nSuggested use\nAs a dietary supplement for adults, take three (3) tablets daily, preferably with a meal or as directed by a healthcare practitioner."
+                        UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                        showScanned()
+                        self.scanned = true
+                        UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
+                        print("003")
+                    } else if (predictedDS == "004"){
+                        self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                        let DSDesc = "California Gold Nutrition, Ferrochel Iron (Bisglycinate), 36 mg, 90 Veggie Capsules - \(prediction)\n\nSupplement Facts\n\nServing Size: 1 Capsule\nServings Per Container: 90\n\nAmount Per Serving\nIron (as Ferrous Bisglycinate Chelate)    36 mg\n\nSuggested use\nTake 1 capsule daily without food. Best when taken as directed by a qualified healthcare professional."
+                        UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                        showScanned()
+                        self.scanned = true
+                        UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
+                        print("004")
+                    }
+                    print("classifications is not empty")
                 }
-                var DSDesc = ""
-                // Matching
-                // Our hardcoded data provides more accurate and understandable information, avoids misrecognition of small text in low light and handshake conditions, and also makes complex meanings easier
-                if (predictedDS == "001"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    DSDesc = "Sundown Naturals, Calcium, Magnesium & Zinc, 100 Caplets\n\nSupplement Facts\n\nServing Size: 2 Capsules\nServings Per Container: 200\n\nAmount Per Serving\nL-Leucine    500 mg\nL-Isoleucine    250 mg\nL-Valine    250 mg\n\nSuggested use\nConsume 2 BCAA 1000 Capsules between meals, 35-45 minutes before workouts, and/or immediately after workouts. Intended for use in healthy adults and as part of a healthy, balanced diet and exercise program."
-                    showScanned()
-                    self.scanned = true
-                    UserDefaults.standard.set(false, forKey: "Key2") //Bool
-                    UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
-                    print("001")
-                } else if (predictedDS == "002"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    DSDesc = "Source Naturals, B-50 Complex, 50 mg, 100 Tablets\n\nSupplement Facts\n\nServing Size: 1 Tablet\n\nAmount Per Serving\nThiamin (as mononitrate) (vitamin B-1)    50 mg\nRiboflavin (vitamin B-2)    50 mg\nNiacin (as niacinamide)    50 mg\nVitamin B-6 (as pyridoxine HCI)    50 mg\nFolate (as folic acid)    1,360 mcg DFE(800 mcg folic acid)\nVitamin B-12 (as cyanocobalamin)    50 mcg\nBiotin    50 mcg\nPantothenic Acid (as calcium D-pantothenate)    100 mg\nCholine (as choline bitartrate)    50 mg\nInositol    50 mg\nPABA (as para-amino benzoic acid)    30 mg\n\nSuggested use\n1 tablet 1 to 2 times daily."
-                    showScanned()
-                    self.scanned = true
-                    UserDefaults.standard.set(false, forKey: "Key2") //Bool
-                    UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
-                    print("002")
-                } else if (predictedDS == "003"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    DSDesc = "Solgar, Magnesium with Vitamin B6, 250 Tablets\n\nSupplement Facts\n\nServing Size: 3 Tablets\nServings Per Container: 83\n\nAmount Per Serving\nVitamin B6 (as pyridoxine HCl)    25 mg\nMagnesium (as magnesium oxide)    400 mg\n\nSuggested use\nAs a dietary supplement for adults, take three (3) tablets daily, preferably with a meal or as directed by a healthcare practitioner."
-                    showScanned()
-                    self.scanned = true
-                    UserDefaults.standard.set(false, forKey: "Key2") //Bool
-                    UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
-                    print("003")
-                } else if (predictedDS == "004"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    DSDesc = "California Gold Nutrition, Ferrochel Iron (Bisglycinate), 36 mg, 90 Veggie Capsules\n\nSupplement Facts\n\nServing Size: 1 Capsule\nServings Per Container: 90\n\nAmount Per Serving\nIron (as Ferrous Bisglycinate Chelate)    36 mg\n\nSuggested use\nTake 1 capsule daily without food. Best when taken as directed by a qualified healthcare professional."
-                    showScanned()
-                    self.scanned = true
-                    UserDefaults.standard.set(false, forKey: "Key2") //Bool
-                    UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
-                    print("004")
-                }
-                self.classifierLabel = DSDesc
-                print("self.classifierLabel OK")
                 
-                let topClassifications = classifications.prefix(3)
-                let descriptions = topClassifications.map { classifications in
-                    // "%.2f" means percentageFloorTo2Decimal a Float. "%@" would be a String
-                    return String(format: "%.2f %@", classifications.confidence, classifications.identifier)
+                switch prediction {
+                case 100.0...:
+                    classify()
+                    print("Confidence: 100.0...")
+                    break
+                case 75.0..<100.0:
+                    classify()
+                    print("Confidence: 70.0..<100.0...")
+                    break
+                case 10.0..<75.0:
+                    print("Confidence: 10.0..<70.0")
+                    break
+                case 1.0..<10.0:
+                    print("Confidence: 1.0..<10.0")
+                    break
+                case ..<1.0:
+                    print("Confidence: ..<1.0")
+                    break
+                default:
+                    print("Confidence: N/A")
                 }
-                print("Classification:\n" + descriptions.joined(separator: "\n"))
                 
-                print("classifications is not empty")
             }
             print("DispatchQueue.main.async OK")
         }
@@ -204,9 +229,8 @@ extension HomeViewController {
         
         let parent = self.view!
         
-//        cameraImageView.frame = CGRect(x: 0, y: 0, width: 390, height: 844)
-//        parent.addSubview(cameraImageView)
-//        captureLiveVideo()
+        cameraImageView.frame = CGRect(x: 0, y: 0, width: 390, height: 844)
+        parent.addSubview(cameraImageView)
         
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 390, height: 268)

@@ -106,7 +106,7 @@ extension ScannedViewController{
         view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 144).isActive = true
         
         let label = UILabel()
-        label.frame = CGRect(x: 0, y: 0, width: 339, height: 574)
+        label.frame = CGRect(x: 0, y: 0, width: 339, height: 500)
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
 //        label.font = UIFont.systemFont(ofSize: 18.0)
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
@@ -116,7 +116,7 @@ extension ScannedViewController{
         parent.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 339).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 574).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 500).isActive = true
         label.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 25).isActive = true
         label.topAnchor.constraint(equalTo: parent.topAnchor, constant: 115).isActive = true
         
@@ -128,7 +128,7 @@ extension ScannedViewController{
         voiceIcon.widthAnchor.constraint(equalToConstant: 94).isActive = true
         voiceIcon.heightAnchor.constraint(equalToConstant: 94).isActive = true
         voiceIcon.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 148).isActive = true
-        voiceIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 738).isActive = true
+        voiceIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 650).isActive = true
         
         let dragHandlerIcon = UIImageView(image: UIImage(named: "drag_handle_black_24dp"))
         dragHandlerIcon.frame = CGRect(x: 0, y: 0, width: 87, height: 87)
