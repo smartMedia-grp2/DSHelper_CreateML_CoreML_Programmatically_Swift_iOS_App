@@ -183,7 +183,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        
+        print("captureOutput start")
         connection.videoOrientation = .portrait
 
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
