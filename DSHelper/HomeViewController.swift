@@ -496,8 +496,14 @@ class HomeViewController: UIViewController {
                     classify()
                     print("Confidence: 75.0..<100.0...")
                     break
-                case 10.0..<75.0:
-                    print("Confidence: 10.0..<75.0")
+                case 50.0..<75.0:
+                    print("Confidence: 50.0..<75.0")
+                    break
+                case 25.0..<50.0:
+                    print("Confidence: 25.0..<50.0")
+                    break
+                case 10.0..<25.0:
+                    print("Confidence: 10.0..<25.0")
                     break
                 case 1.0..<10.0:
                     print("Confidence: 1.0..<10.0")
