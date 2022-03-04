@@ -103,22 +103,22 @@ extension ScannedViewController{
         view.widthAnchor.constraint(equalToConstant: 390).isActive = true
         view.heightAnchor.constraint(equalToConstant: 804).isActive = true
         view.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 0).isActive = true
-        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 140).isActive = true
+        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 90).isActive = true
         
         let label = UILabel()
-        label.frame = CGRect(x: 0, y: 0, width: 339, height: 550)
+        label.frame = CGRect(x: 0, y: 0, width: 360, height: 550)
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
 //        label.font = UIFont.systemFont(ofSize: 18.0)
-        label.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
+        label.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.text = DSDesc
         parent.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.widthAnchor.constraint(equalToConstant: 339).isActive = true
+        label.widthAnchor.constraint(equalToConstant: 360).isActive = true
         label.heightAnchor.constraint(equalToConstant: 550).isActive = true
-        label.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 25).isActive = true
-        label.topAnchor.constraint(equalTo: parent.topAnchor, constant: 100).isActive = true
+        label.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 20).isActive = true
+        label.topAnchor.constraint(equalTo: parent.topAnchor, constant: 140).isActive = true
         
         voiceIcon.setBackgroundImage(UIImage(named: "campaign_black_24dp") , for: .normal)
         voiceIcon.frame = CGRect(x: 0, y: 0, width: 94, height: 94)
@@ -128,7 +128,7 @@ extension ScannedViewController{
         voiceIcon.widthAnchor.constraint(equalToConstant: 94).isActive = true
         voiceIcon.heightAnchor.constraint(equalToConstant: 94).isActive = true
         voiceIcon.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 148).isActive = true
-        voiceIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 650).isActive = true
+        voiceIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 660).isActive = true
         
         let dragHandlerIcon = UIImageView(image: UIImage(named: "drag_handle_black_24dp"))
         dragHandlerIcon.frame = CGRect(x: 0, y: 0, width: 87, height: 87)
@@ -138,7 +138,7 @@ extension ScannedViewController{
         dragHandlerIcon.widthAnchor.constraint(equalToConstant: 87).isActive = true
         dragHandlerIcon.heightAnchor.constraint(equalToConstant: 87).isActive = true
         dragHandlerIcon.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 151).isActive = true
-        dragHandlerIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 120).isActive = true
+        dragHandlerIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 65).isActive = true
         
         let bookmarksIcon = UIButton()
         bookmarksIcon.setBackgroundImage(UIImage(named: "bookmarks_black_24dp") , for: .normal)
@@ -149,7 +149,7 @@ extension ScannedViewController{
         bookmarksIcon.widthAnchor.constraint(equalToConstant: 70).isActive = true
         bookmarksIcon.heightAnchor.constraint(equalToConstant: 70).isActive = true
         bookmarksIcon.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 290).isActive = true
-        bookmarksIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 35).isActive = true
+        bookmarksIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 15).isActive = true
 
         bookmarkIcon.setBackgroundImage(UIImage(named: "bookmark_border_black_24dp") , for: .normal)
         bookmarkIcon.frame = CGRect(x: 0, y: 0, width: 70, height: 70)
@@ -159,7 +159,7 @@ extension ScannedViewController{
         bookmarkIcon.widthAnchor.constraint(equalToConstant: 70).isActive = true
         bookmarkIcon.heightAnchor.constraint(equalToConstant: 70).isActive = true
         bookmarkIcon.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 19).isActive = true
-        bookmarkIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 35).isActive = true
+        bookmarkIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 15).isActive = true
     }
 }
 

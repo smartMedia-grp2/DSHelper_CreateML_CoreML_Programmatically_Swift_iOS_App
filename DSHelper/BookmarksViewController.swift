@@ -15,9 +15,19 @@ class BookmarksViewController: UIViewController {
     var DSDescArray = UserDefaults.standard.stringArray(forKey: "DSDescArray")!
 
     
-    let scrollView: UIScrollView = {
+    private let scrollView: UIScrollView = {
         let v = UIScrollView()
         v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
+    private let scrollStackViewContainer: UIStackView = {
+        let v = UIStackView()
+        v.axis = .vertical
+        v.spacing = 20
+        v.distribution = .fillEqually
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.isLayoutMarginsRelativeArrangement = true
+        v.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 30, bottom: 20, trailing: 30)
         return v
     }()
 
@@ -35,11 +45,17 @@ class BookmarksViewController: UIViewController {
         
         // add the scroll view to self.view
         self.view.addSubview(scrollView)
+        scrollView.addSubview(scrollStackViewContainer)
         // constrain the scroll view to 8-pts on each side
         scrollView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 247).isActive = true
         scrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        scrollStackViewContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        scrollStackViewContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
         
         // To find out where the UserDefaults folder is
         let path: [AnyObject] = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true) as [AnyObject]
@@ -66,7 +82,7 @@ class BookmarksViewController: UIViewController {
                 COL = 0
             }
         }
-        
+
     }
 
     @IBAction private func backToPreviousView(_ sender: UIButton){
@@ -86,39 +102,33 @@ class BookmarksViewController: UIViewController {
     private func addCardView(txt: String, row: CGFloat, col: CGFloat, imgName: String){
         // View
         let view = UIView()
-        view.frame = CGRect(x: 0, y: 0, width: 155, height: 230)
-        view.layer.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
+        view.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        view.backgroundColor = UIColor.white
         view.layer.cornerRadius = 16
-        scrollView.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.widthAnchor.constraint(equalToConstant: 155).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 230).isActive = true
-        view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: (col*172)+31).isActive = true
-        view.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: row*247).isActive = true
+        scrollStackViewContainer.addArrangedSubview(view)
         // Label
         let label = UILabel()
-        label.frame = CGRect(x: 0, y: 0, width: 140, height: 80)
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.text = txt
-        scrollView.addSubview(label)
+        view.addSubview(label)
+        label.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 75).isActive = true
+        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.widthAnchor.constraint(equalToConstant: 140).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        label.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: (col*172)+43).isActive = true
-        label.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: (row*247)+130.5).isActive = true
         // Image
         let imgSrc:UIImage = UIImage(named: imgName)!
         let img = UIImageView(image: imgSrc)
-        img.frame = CGRect(x: 0, y: 0, width: 119, height: 125)
-        scrollView.addSubview(img)
-        img.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(img)
         img.widthAnchor.constraint(equalToConstant: 119).isActive = true
         img.heightAnchor.constraint(equalToConstant: 125).isActive = true
-        img.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: (col*172)+48).isActive = true
-        img.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: (row*247)+4).isActive = true
+        img.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 105).isActive = true
+        img.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        img.translatesAutoresizingMaskIntoConstraints = false
     }
 
 }
