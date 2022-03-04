@@ -95,18 +95,18 @@ extension ScannedViewController{
         self.view.backgroundColor = .clear
         
         let view = UIView()
-        view.frame = CGRect(x: 0, y: 0, width: 390, height: 800)
+        view.frame = CGRect(x: 0, y: 0, width: 390, height: 804)
         view.layer.backgroundColor = UIColor(red: 1, green: 0.008, blue: 0.4, alpha: 1).cgColor
         view.layer.cornerRadius = 64
         parent.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: 390).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 800).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 804).isActive = true
         view.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 0).isActive = true
-        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 144).isActive = true
+        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 140).isActive = true
         
         let label = UILabel()
-        label.frame = CGRect(x: 0, y: 0, width: 339, height: 500)
+        label.frame = CGRect(x: 0, y: 0, width: 339, height: 550)
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
 //        label.font = UIFont.systemFont(ofSize: 18.0)
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
@@ -116,9 +116,9 @@ extension ScannedViewController{
         parent.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 339).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 550).isActive = true
         label.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 25).isActive = true
-        label.topAnchor.constraint(equalTo: parent.topAnchor, constant: 115).isActive = true
+        label.topAnchor.constraint(equalTo: parent.topAnchor, constant: 100).isActive = true
         
         voiceIcon.setBackgroundImage(UIImage(named: "campaign_black_24dp") , for: .normal)
         voiceIcon.frame = CGRect(x: 0, y: 0, width: 94, height: 94)

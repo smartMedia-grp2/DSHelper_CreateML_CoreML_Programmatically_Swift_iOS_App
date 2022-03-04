@@ -42,7 +42,7 @@ class BookmarksViewController: UIViewController {
         scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         
         // To find out where the UserDefaults folder is
-        var path: [AnyObject] = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true) as [AnyObject]
+        let path: [AnyObject] = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true) as [AnyObject]
             let folder: String = path[0] as! String
             NSLog("Your NSUserDefaults are stored in this folder: %@/Preferences", folder)
         
