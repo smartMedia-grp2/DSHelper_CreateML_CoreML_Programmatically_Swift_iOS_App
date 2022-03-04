@@ -111,11 +111,10 @@ class HomeViewController: UIViewController {
 //                    "%.2f" means percentageFloorTo2Decimal a Float. "%@" would be a String
 //                    return String(format: "(%.2f)%@", observation.confidence, observation.identifier)
                 }
+                print(prediction)
                 
                 func classify(){
-                    
-                    print(prediction)
-                    
+                    print("classify() start")
                     func showScanned(){
                         if (self.scanned == false) {
                             if #available(iOS 13.0, *) { // View present style 1
@@ -132,7 +131,6 @@ class HomeViewController: UIViewController {
                         }
                         print("showScanned OK")
                     }
-                    
                     // Matching
                     // Our hardcoded data provides more accurate and understandable information, avoids misrecognition of small text in low light and handshake conditions, and also makes complex meanings easier
                     if (predictedDS == "001"){
@@ -484,7 +482,7 @@ class HomeViewController: UIViewController {
                         UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                         print("020")
                     }
-                    print("classifications is not empty")
+                    print("classify() end")
                 }
                 
                 switch prediction {
