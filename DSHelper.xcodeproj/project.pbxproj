@@ -11,7 +11,7 @@
 		6E50AFE027C361C30068ADB1 /* ScannedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E50AFDF27C361C30068ADB1 /* ScannedViewController.swift */; };
 		6EA84E5527CA995800E65A89 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA84E5427CA995800E65A89 /* Vision.framework */; };
 		6EA84E5927CA997D00E65A89 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA84E5827CA997D00E65A89 /* AVFoundation.framework */; };
-		6EF32CED27D21196008485EE /* dsClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6EF32CEC27D21196008485EE /* dsClassifier.mlmodel */; };
+		6EF32CEF27D2667F008485EE /* dsClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6EF32CEE27D2667F008485EE /* dsClassifier.mlmodel */; };
 		F4FB444D21A7923100939357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FB444C21A7923100939357 /* AppDelegate.swift */; };
 		F4FB445221A7923100939357 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4FB445021A7923100939357 /* Main.storyboard */; };
 		F4FB445421A7923300939357 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4FB445321A7923300939357 /* Assets.xcassets */; };
@@ -24,7 +24,7 @@
 		6E50AFDF27C361C30068ADB1 /* ScannedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedViewController.swift; sourceTree = "<group>"; };
 		6EA84E5427CA995800E65A89 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 		6EA84E5827CA997D00E65A89 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		6EF32CEC27D21196008485EE /* dsClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = dsClassifier.mlmodel; sourceTree = "<group>"; };
+		6EF32CEE27D2667F008485EE /* dsClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = dsClassifier.mlmodel; sourceTree = "<group>"; };
 		F4FB444921A7923100939357 /* DSHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DSHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4FB444C21A7923100939357 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4FB445121A7923100939357 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 		F4FB446021A7FE5000939357 /* MLModel */ = {
 			isa = PBXGroup;
 			children = (
-				6EF32CEC27D21196008485EE /* dsClassifier.mlmodel */,
+				6EF32CEE27D2667F008485EE /* dsClassifier.mlmodel */,
 			);
 			path = MLModel;
 			sourceTree = "<group>";
@@ -173,7 +173,7 @@
 				6E50AFE027C361C30068ADB1 /* ScannedViewController.swift in Sources */,
 				F4FB444D21A7923100939357 /* AppDelegate.swift in Sources */,
 				F4FB445F21A7926C00939357 /* HomeViewController.swift in Sources */,
-				6EF32CED27D21196008485EE /* dsClassifier.mlmodel in Sources */,
+				6EF32CEF27D2667F008485EE /* dsClassifier.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
