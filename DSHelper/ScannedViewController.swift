@@ -6,27 +6,30 @@
 //
 
 import UIKit
-import AVFoundation
+import AVFoundation /* Voice */
 
 class ScannedViewController: UIViewController {
     
+    // DS description and ID
     var DSDesc = UserDefaults.standard.string(forKey: "Key") ?? "Welcome to DS Helper!"
     var DS_ID = UserDefaults.standard.string(forKey: "DS_ID") ?? "000"
-    
+    /* Voice2 */
     var voiceIcon = UIButton()
     let synthesizer = AVSpeechSynthesizer()
-    
+    /* Voice2 end */
+    // Bookmark
     let bookmarkIcon = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        ScannedView()
+        ScannedView() /* UILayout */
         
-        synthesizer.delegate = self
+        synthesizer.delegate = self /* Voice2 */
     }
     
+    // Button action(s)
     @objc private func toBookmarksView(){ // View present style 2
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "bookmarksView") as? BookmarksViewController else {
             return
@@ -56,6 +59,7 @@ class ScannedViewController: UIViewController {
             print([DSDesc])
         }
     }
+    /* Voice */
     @objc private func textToSpeech(){
         voiceIcon.isEnabled = false
         let utterance = AVSpeechUtterance(string: DSDesc)
@@ -63,7 +67,9 @@ class ScannedViewController: UIViewController {
         utterance.rate = 0.25
         synthesizer.speak(utterance)
     }
+    /* Voice end */
     
+    // When the user close this view
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isBeingDismissed {
@@ -85,6 +91,7 @@ class ScannedViewController: UIViewController {
 
 }
 
+/* UILayout */
 extension ScannedViewController{
     private func ScannedView(){
         
@@ -162,10 +169,13 @@ extension ScannedViewController{
         bookmarkIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 15).isActive = true
     }
 }
+/* UILayout end */
 
+/* Voice2 */
 extension ScannedViewController: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         //Speaking is done, enable speech UI for next round
         voiceIcon.isEnabled = true
     }
 }
+/* Voice2 end */

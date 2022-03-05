@@ -1,16 +1,20 @@
 import Foundation
 import UIKit
-import AVFoundation
-import Vision
+import AVFoundation /* Voice */
+import Vision /* imageClassification */
 
 class HomeViewController: UIViewController {
     
     var scanned = false
     
-    var captureSession = AVCaptureSession() // Create capture session
+    var captureSession = AVCaptureSession() // Create capture session /* imageClassification */
+    /* imageClassification2 */
 //    @IBOutlet var cameraImageView : UIImageView!
     var cameraImageView = UIImageView()
+    /* imageClassification2 end */
     
+    /* imageClassification4 */
+    // Load ML model
     lazy var classificationRequest: VNCoreMLRequest = {
         do {
             let model = try VNCoreMLModel(for: dsClassifier(configuration: MLModelConfiguration()).model)
@@ -23,28 +27,32 @@ class HomeViewController: UIViewController {
         }
         print("classificationRequset OK")
     }()
+    /* imageClassification4 end */
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        HomeView()
-        captureLiveVideo()
+        HomeView() /* UILayout */
+        captureLiveVideo() /* imageClassification */
         
+        /* Voice */
         let utterance = AVSpeechUtterance(string: "Welcome to DS Helper! Please scan information printed on dietary supplements.")
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = 0.25
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.speak(utterance)
+        /* Voice end */
         
 //        print("viewDidAppear OK")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 //        print("viewDidLoad OK")
     }
     
+    /* imageClassification */
+    // Capture Live Video
     func captureLiveVideo() {
         // Create a capture device
         captureSession.sessionPreset = .photo
@@ -76,7 +84,10 @@ class HomeViewController: UIViewController {
         
 //        print("captureLiveVideo OK")
     }
+    /* imageClassification end */
     
+    /* imageClassification5 */
+    // Classification
     /// Updates the UI with the results of the classification.
     /// - Tag: ProcessClassifications
     func processClassifications(for request: VNRequest, error: Error?) {
@@ -122,7 +133,6 @@ class HomeViewController: UIViewController {
                     print("showScanned OK")
                 }
                 // Matching
-                // Our hardcoded data provides more accurate and understandable information, avoids misrecognition of small text in low light and handshake conditions, and also makes complex meanings easier
                 if (predictedDS == "001"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
                     let DSDesc =
@@ -147,14 +157,9 @@ class HomeViewController: UIViewController {
                     "1 Tablet" + "\n\nAmount Per Serving\n" +
                     "Thiamin (as mononitrate) (vitamin B-1)    50 mg" + "\n" +
                     "Riboflavin (vitamin B-2)    50 mg" + "\n" +
-                    "Niacin (as niacinamide)    50 mg" + "\n" +
                     "Vitamin B-6 (as pyridoxine HCI)    50 mg" + "\n" +
                     "Folate (as folic acid)    1,360 mcg" + "\n" +
-                    "Vitamin B-12 (as cyanocobalamin)    50 mcg" + "\n" +
-                    "Biotin    50 mcg" + "\n" +
                     "Pantothenic Acid (as calcium D-pantothenate)    100 mg" + "\n" +
-                    "Choline (as choline bitartrate)    50 mg" + "\n" +
-                    "Inositol    50 mg" + "\n" +
                     "PABA (as para-amino benzoic acid)    30 mg" + "\n\nSuggested use\n" +
                     "1 tablet 1 to 2 times daily."
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
@@ -222,10 +227,6 @@ class HomeViewController: UIViewController {
                     "Lactobacillus acidophilus (La-14)    " + "\n" +
                     "Bifidobacterium lactis (Bl-04)    " + "\n" +
                     "Lactobacillus rhamnosus (Lr-32)    " + "\n" +
-                    "Lactobacillus plantarum (Lp-115)    " + "\n" +
-                    "Bifidobacterium longum (Bl-05)    " + "\n" +
-                    "Bifidobacterium breve (Bb-03)    " + "\n" +
-                    "Lactobacillus casei (Lc-11)    " + "\n" +
                     "Lactobacillus salivarius (Ls-33)    " + "\n\nSuggested use\n" +
                     "Take 1 capsule daily, with or without food. Best when taken as directed by a qualified healthcare professional."
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
@@ -242,14 +243,9 @@ class HomeViewController: UIViewController {
                     "30" + "\n\nAmount Per Serving\n" +
                     "Thiamine (vitamin B1) (as thiamine HCI)    100 mg" + "\n" +
                     "Riboflavin (vitamin B2) (as riboflavin and riboflavin 5'-phosphate)" + "\n" +
-                    "Niacin (as niacinamide and niacin)    100 mg" + "\n" +
-                    "Vitamin B6 (as pyridoxine HCI and pyridoxal 5' phosphate)    100 mg" + "\n" +
-                    "Folate (as L-5-methyltetrahydrofolate calcium salt)    680 mcg" + "\n" +
                     "Vitamin B12 (as methylcobalamin)    300 mcg" + "\n" +
-                    "Biotin    1000 mcg" + "\n" +
                     "Pantothenic acid (as D-calcium pantothenate)    500 mg" + "\n" +
                     "Calcium (as D-calcium pantothenate, dicalcium phosphate)    50 mg" + "\n" +
-                    "Inositol    100 mg" + "\n" +
                     "PABA (para-aminobenzoic acid)    50 mg" + "\n\nSuggested use\n" +
                     "Read the entire label and follow the directions carefully prior to use. Take two (2) capsules daily with food, or as recommended by a healthcare practitioner."
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
@@ -381,8 +377,6 @@ class HomeViewController: UIViewController {
                     "Total Fat    1 g" + "\n" +
                     "Saturated Fat    0 g" + "\n" +
                     "Polyunsaturated Fat    0.5 g" + "\n" +
-                    "Monounsaturated Fat    0 g" + "\n" +
-                    "Cholesterol    <5 mg" + "\n" +
                     "Vitamin E (mixed tocopherols)    10 IU" + "\n" +
                     "Omega 3/6/9 Proprietary Blend (non-GMO borage oil, fish oil [sardine and anchovy] and flax oil)    1200 mg" + "\n\nSuggested use\n" +
                     "As a dietary supplement for essential fatty acids, one softgel three times daily."
@@ -516,6 +510,7 @@ class HomeViewController: UIViewController {
         }
 //        print("processClassifications OK")
     }
+    /* imageClassification5 end */
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         print("preferredStatusBarStyle OK")
@@ -523,6 +518,8 @@ class HomeViewController: UIViewController {
     }
 }
 
+/* imageClassification3 */
+// Live video output
 extension HomeViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
 //        print("captureOutput start")
@@ -537,18 +534,21 @@ extension HomeViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         }catch{
             print(error)
         }
-        
 //        print("captureOutput OK")
     }
 }
+/* imageClassification3 end */
 
+/* UILayout */
 extension HomeViewController {
     private func HomeView(){
         
         let parent = self.view!
         
+        /* imageClassification2 */
         cameraImageView.frame = CGRect(x: 0, y: 0, width: 390, height: 844)
         parent.addSubview(cameraImageView)
+        /* imageClassification2 end */
         
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 390, height: 268)
@@ -637,3 +637,4 @@ extension HomeViewController {
 
     }
 }
+/* UILayout end*/

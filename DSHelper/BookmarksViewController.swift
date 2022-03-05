@@ -9,12 +9,13 @@ import UIKit
 
 class BookmarksViewController: UIViewController {
     
+    // DS description
     var DSDesc2 = UserDefaults.standard.string(forKey: "Key")!
-    
+    // DS array
     var DSArray = UserDefaults.standard.stringArray(forKey: "DSArray")!
     var DSDescArray = UserDefaults.standard.stringArray(forKey: "DSDescArray")!
 
-    
+    /* UILayout */
     private let scrollView: UIScrollView = {
         let v = UIScrollView()
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -30,12 +31,13 @@ class BookmarksViewController: UIViewController {
         v.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 30, bottom: 20, trailing: 30)
         return v
     }()
+    /* UILayout end */
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        BookmarksView()
+        BookmarksView() /* UILayout */
         
         // Filter out duplicates in an array
         let DSArrayNoDuplicates:Array = Array(Set(DSArray))
@@ -43,10 +45,10 @@ class BookmarksViewController: UIViewController {
         let DSDescArrayNoDuplicates:Array = Array(Set(DSDescArray))
         print(DSDescArrayNoDuplicates)
         
+        /* UILayout2 */
         // add the scroll view to self.view
         self.view.addSubview(scrollView)
         scrollView.addSubview(scrollStackViewContainer)
-        // constrain the scroll view to 8-pts on each side
         scrollView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 247).isActive = true
         scrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
@@ -56,18 +58,20 @@ class BookmarksViewController: UIViewController {
         scrollStackViewContainer.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         scrollStackViewContainer.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         scrollStackViewContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        /* UILayout2 end */
         
         // To find out where the UserDefaults folder is
         let path: [AnyObject] = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true) as [AnyObject]
             let folder: String = path[0] as! String
             NSLog("Your NSUserDefaults are stored in this folder: %@/Preferences", folder)
         
-        // Add cards algorithm
+        /* UILayout2 */
+        // Add card(s) algorithm
         var ROW = 0
         var COL = 0
         var twoUp = 0
         for i in 0 ..< DSArrayNoDuplicates.count {
-            addCardView(txt: "\(DSDescArrayNoDuplicates[i])", row: CGFloat(Int(ROW)), col: CGFloat(Int(COL)), imgName: "\(DSArrayNoDuplicates[i])")
+            addCard(txt: "\(DSDescArrayNoDuplicates[i])", row: CGFloat(Int(ROW)), col: CGFloat(Int(COL)), imgName: "\(DSArrayNoDuplicates[i])")
             // Using same row twice, then increment
             if (twoUp < 1){
                 twoUp = twoUp + 1
@@ -82,6 +86,7 @@ class BookmarksViewController: UIViewController {
                 COL = 0
             }
         }
+        /* UILayout2 end */
 
     }
 
@@ -99,7 +104,8 @@ class BookmarksViewController: UIViewController {
     }
     */
     
-    private func addCardView(txt: String, row: CGFloat, col: CGFloat, imgName: String){
+    /* UILayout2 */
+    private func addCard(txt: String, row: CGFloat, col: CGFloat, imgName: String){
         // View
         let view = UIView()
         view.heightAnchor.constraint(equalToConstant: 200).isActive = true
@@ -130,9 +136,11 @@ class BookmarksViewController: UIViewController {
         img.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         img.translatesAutoresizingMaskIntoConstraints = false
     }
+    /* UILayout2 end */
 
 }
 
+/* UILayout */
 extension BookmarksViewController{
     private func BookmarksView(){
         
@@ -219,3 +227,4 @@ extension BookmarksViewController{
             
     }
 }
+/* UILayout end */
