@@ -3,7 +3,30 @@ import UIKit
 import AVFoundation /* Voice */
 import Vision /* imageClassification */
 
+/* JSON */
+// JSON structure
+struct DS: Codable {
+    var title: String
+    var price: String
+    var servingSize: String
+    var servingsPerContainer: String
+    var supplementFact: String
+    var supplementFact2: String
+    var supplementFact3: String
+    var supplementFact4: String
+    var supplementFact5: String
+    var supplementFact6: String
+    var supplementFact7: String
+    var suggestedUse: String
+}
+struct DSs: Codable {
+    var results: [DS]
+}
+/* JSON end */
+
 class HomeViewController: UIViewController {
+    
+    var dss = [DS]() /* JSON */
     
     var scanned = false
     
@@ -50,6 +73,67 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 //        print("viewDidLoad OK")
     }
+    
+    /* JSON2 */
+    // Use the two methods we created to reading JSON
+    private func DSInfo(DSID rowNo: Int) -> String?{
+        // 1. Reading the local data.json file.
+        if let localData = self.readLocalFile(forName: "data") {
+            self.parse(jsonData: localData)
+        }
+        // 2. Read and print the contents of the hosted JSON file.
+//        let urlString = "https://raw.githubusercontent.com/programmingwithswift/ReadJSONFileURL/master/hostedDataFile.json"
+//        self.loadJson(fromURLString: urlString) { (result) in
+//            switch result {
+//            case .success(let data):
+//                self.parse(jsonData: data)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+        let ds = dss[rowNo]
+        let DSInformation = "\(ds.title)" + "\(ds.price)" + "\n\nSupplement Facts\nServing Size:\(ds.servingSize)" + "\nServings Per Container:\(ds.servingsPerContainer)" + "\nAmount Per Serving / % Daily Value\n\(ds.supplementFact)" + "\n\(ds.supplementFact2)" + "\n\(ds.supplementFact3)" + "\n\(ds.supplementFact4)" + "\n\(ds.supplementFact5)" + "\n\(ds.supplementFact6)" + "\n\(ds.supplementFact7)" + "\n\nSuggested use\n\(ds.suggestedUse)"
+        return DSInformation
+    }
+    /* JSON2 end */
+
+    /* JSON3 */
+    // 1. Read the local JSON file
+    private func readLocalFile(forName name: String) -> Data? {
+        do {
+            if let bundlePath = Bundle.main.path(forResource: name, ofType: "json"),
+                let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
+                return jsonData
+            }
+        } catch {
+            print(error)
+        }
+        return nil
+    }
+    // 2. Create loadJson from URL method
+//    private func loadJson(fromURLString urlString: String, completion: @escaping (Result<Data, Error>) -> Void) {
+//        if let url = URL(string: urlString) {
+//            let urlSession = URLSession(configuration: .default).dataTask(with: url) { (data, response, error) in
+//                if let error = error {
+//                    completion(.failure(error))
+//                }
+//                if let data = data {
+//                    completion(.success(data))
+//                }
+//            }
+//            urlSession.resume()
+//        }
+//    }
+    // Create the JSON Parse method
+    private func parse(jsonData: Data) {
+        do {
+            let decodedData = try JSONDecoder().decode(DSs.self, from: jsonData)
+            dss = decodedData.results
+        } catch {
+            print("decode error")
+        }
+    }
+    /* JSON3 end */
     
     /* imageClassification */
     // Capture Live Video
@@ -135,15 +219,7 @@ class HomeViewController: UIViewController {
                 // Matching
                 if (predictedDS == "001"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "Sundown Naturals, Calcium, Magnesium & Zinc, 100 Caplets" +
-                    "HK$34.97" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "3 Caplets" + "\nServings Per Container:" +
-                    "33" + "\n\nAmount Per Serving\n" +
-                    "Calcium (as Calcium Carbonate and Calcium Gluconate)    1,000 mg" + "\n" +
-                    "Magnesium (as Magnesium Oxide and Magnesium Gluconate)    400 mg" + "\n" +
-                    "Zinc (as Zinc Oxide and Zinc Citrate)    25 mg" + "\n\nSuggested use\n" +
-                    "For adults, take three (3) caplets daily, preferably with a meal. As a reminder, discuss the supplements and medications you take with your health care providers."
+                    let DSDesc = self.DSInfo(DSID: 0) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -151,17 +227,7 @@ class HomeViewController: UIViewController {
                     print("001")
                 } else if (predictedDS == "002"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "Source Naturals, B-50 Complex, 50 mg, 100 Tablets" +
-                    "HK$81.93" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "1 Tablet" + "\n\nAmount Per Serving\n" +
-                    "Thiamin (as mononitrate) (vitamin B-1)    50 mg" + "\n" +
-                    "Riboflavin (vitamin B-2)    50 mg" + "\n" +
-                    "Vitamin B-6 (as pyridoxine HCI)    50 mg" + "\n" +
-                    "Folate (as folic acid)    1,360 mcg" + "\n" +
-                    "Pantothenic Acid (as calcium D-pantothenate)    100 mg" + "\n" +
-                    "PABA (as para-amino benzoic acid)    30 mg" + "\n\nSuggested use\n" +
-                    "1 tablet 1 to 2 times daily."
+                    let DSDesc = self.DSInfo(DSID: 1) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -169,14 +235,7 @@ class HomeViewController: UIViewController {
                     print("002")
                 } else if (predictedDS == "003"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "Solgar, Magnesium with Vitamin B6, 250 Tablets" +
-                    "HK$119.24" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "3 Tablets" + "\nServings Per Container:" +
-                    "83" + "\n\nAmount Per Serving\n" +
-                    "Vitamin B6 (as pyridoxine HCl)    25 mg" + "\n" +
-                    "Magnesium (as magnesium oxide)    400 mg" + "\n\nSuggested use\n" +
-                    "As a dietary supplement for adults, take three (3) tablets daily, preferably with a meal or as directed by a healthcare practitioner."
+                    let DSDesc = self.DSInfo(DSID: 2) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -184,13 +243,7 @@ class HomeViewController: UIViewController {
                     print("003")
                 } else if (predictedDS == "004"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "California Gold Nutrition, Ferrochel Iron (Bisglycinate), 36 mg, 90 Veggie Capsules" +
-                    "HK$56.90" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "1 Capsule" + "\nServings Per Container:" +
-                    "90" + "\n\nAmount Per Serving\n" +
-                    "Iron (as Ferrous Bisglycinate Chelate)    36 mg" + "\n\nSuggested use\n" +
-                    "Take 1 capsule daily without food. Best when taken as directed by a qualified healthcare professional."
+                    let DSDesc = self.DSInfo(DSID: 3) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -198,18 +251,7 @@ class HomeViewController: UIViewController {
                     print("004")
                 } else if (predictedDS == "005"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "California Gold Nutrition, Vitamin C Gummies, Natural Orange Flavor, Gelatin Free, 90 Gummies" +
-                    "HK$73.15" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "3 Gummies" + "\nServings Per Container:" +
-                    "30" + "\n\nAmount Per Serving\n" +
-                    "Calories    30" + "\n" +
-                    "Total Carbohydrate    6 g" + "\n" +
-                    "Total Sugars    6 g" + "\n" +
-                    "Includes 6 g Added Sugars" + "\n" +
-                    "Vitamin A(as Beta Carotene)    75 mcg" + "\n" +
-                    "Vitamin C (as Ascorbic Acid)    250 mg" + "\n\nSuggested use\n" +
-                    "Adults and children 4 years of age or older, take 3 gummies daily, with or without food, or as directed by your qualified healthcare professional. Please ensure child chews gummies thoroughly."
+                    let DSDesc = self.DSInfo(DSID: 4) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -217,18 +259,7 @@ class HomeViewController: UIViewController {
                     print("005")
                 } else if (predictedDS == "006"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "California Gold Nutrition, LactoBif Probiotics, 5 Billion CFU, 10 Veggie Capsules" +
-                    "HK$8.13" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "1 Capsule" + "\nServings Per Container:" +
-                    "10" + "\n\nAmount Per Serving\n" +
-                    "Probiotic Bacteria Blend    5 Billion CFU" + "\n" +
-                    "Composed of the following strains:    " + "\n" +
-                    "Lactobacillus acidophilus (La-14)    " + "\n" +
-                    "Bifidobacterium lactis (Bl-04)    " + "\n" +
-                    "Lactobacillus rhamnosus (Lr-32)    " + "\n" +
-                    "Lactobacillus salivarius (Ls-33)    " + "\n\nSuggested use\n" +
-                    "Take 1 capsule daily, with or without food. Best when taken as directed by a qualified healthcare professional."
+                    let DSDesc = self.DSInfo(DSID: 5) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -236,18 +267,7 @@ class HomeViewController: UIViewController {
                     print("006")
                 } else if (predictedDS == "007"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "Life Extension, BioActive Complete B-Complex, 60 Vegetarian Capsules" +
-                    "HK$80.43" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "2 Vegetarian Capsules" + "\nServings Per Container:" +
-                    "30" + "\n\nAmount Per Serving\n" +
-                    "Thiamine (vitamin B1) (as thiamine HCI)    100 mg" + "\n" +
-                    "Riboflavin (vitamin B2) (as riboflavin and riboflavin 5'-phosphate)" + "\n" +
-                    "Vitamin B12 (as methylcobalamin)    300 mcg" + "\n" +
-                    "Pantothenic acid (as D-calcium pantothenate)    500 mg" + "\n" +
-                    "Calcium (as D-calcium pantothenate, dicalcium phosphate)    50 mg" + "\n" +
-                    "PABA (para-aminobenzoic acid)    50 mg" + "\n\nSuggested use\n" +
-                    "Read the entire label and follow the directions carefully prior to use. Take two (2) capsules daily with food, or as recommended by a healthcare practitioner."
+                    let DSDesc = self.DSInfo(DSID: 6) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -255,19 +275,7 @@ class HomeViewController: UIViewController {
                     print("007")
                 } else if (predictedDS == "008"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "Sports Research, Omega-3 Fish Oil, Triple Strength, 1,250 mg , 120 Softgels" +
-                    "HK$252.47" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "1 Liquid Softgel" + "\nServings Per Container:" +
-                    "120" + "\n\nAmount Per Serving\n" +
-                    "Calories     15" + "\n" +
-                    "Total Fat    1.5 g" + "\n" +
-                    "Omega-3 Fish Oil Concentrate from Wild Caught Fish    1250 mg" + "\n" +
-                    "Total Omega-3 Fatty Acids as TG     1055 mg" + "\n" +
-                    "Eicosapentaenoic Acid (EPA as TG)    685 mg" + "\n" +
-                    "Docosahexaenoic Acid (DHA as TG)    310 mg" + "\n" +
-                    "Other Omega-3 Fatty Acids as TG    60 mg" + "\n\nSuggested use\n" +
-                    "use"
+                    let DSDesc = self.DSInfo(DSID: 7) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -275,16 +283,7 @@ class HomeViewController: UIViewController {
                     print("008")
                 } else if (predictedDS == "009"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "California Gold Nutrition, Immune 4, 60 Veggie Capsules" +
-                    "HK$8.13" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "1 Capsule" + "\nServings Per Container:" +
-                    "60" + "\n\nAmount Per Serving\n" +
-                    "Vitamin C (as Ascorbic Acid)    500 mg" + "\n" +
-                    "Vitamin D (as D3, Cholecalciferol) (from Lanolin)    25 mcg" + "\n" +
-                    "Zinc (as Zinc Picolinate)     10 mg" + "\n" +
-                    "Selenium (as L-Selenomethionine)     50 mcg" + "\n\nSuggested use\n" +
-                    "Take 1 capsule, once or twice daily with food. Best when taken as directed by a qualified healthcare professional."
+                    let DSDesc = self.DSInfo(DSID: 8) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -292,14 +291,7 @@ class HomeViewController: UIViewController {
                     print("009")
                 } else if (predictedDS == "010"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "Natrol, Biotin, Maximum Strength, 10,000 mcg, 100 Tablets" +
-                    "HK$81.90" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "1 Tablet" + "\nServings Per Container:" +
-                    "100" + "\n\nAmount Per Serving\n" +
-                    "Biotin    10,000 mcg" + "\n" +
-                    "Calcium (from Dibasic Calcium Phosphate)    66 mg" + "\n\nSuggested use\n" +
-                    "Take 1 tablet, one time daily, with a meal."
+                    let DSDesc = self.DSInfo(DSID: 9) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -307,13 +299,7 @@ class HomeViewController: UIViewController {
                     print("010")
                 } else if (predictedDS == "011"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "ChildLife, Vitamin D3, Natural Berry Flavor, 1 fl oz (30 ml)" +
-                    "HK$52.38" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "8 drops" + "\nServings Per Container:" +
-                    "115" + "\n\nAmount Per Serving\n" +
-                    "Vitamin D3 (as Cholecalciferol)    500 IU" + "\n\nSuggested use\n" +
-                    "Infants 0 - 12: 6 drops daily\nChildren 1+ yrs: 8 drops daily\nShake well before use. Give directly or mix in your child's favorite drink."
+                    let DSDesc = self.DSInfo(DSID: 10) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -321,17 +307,7 @@ class HomeViewController: UIViewController {
                     print("011")
                 } else if (predictedDS == "012"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "Vital Proteins, Collagen Peptides, Unflavored, 1.25 lbs (567 g)" +
-                    "HK$286.06" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "2 Scoops (20 g)" + "\nServings Per Container:" +
-                    "About 28" + "\n\nAmount Per Serving\n" +
-                    "Calories    70" + "\n" +
-                    "Protein    18 g" + "\n" +
-                    "Sodium    110 mg" + "\n" +
-                    "Collagen peptides (from bovine)    20 g" + "\n" +
-                    "Contains 8 of 9 Essential Amino Acids" + "\n\nSuggested use\n" +
-                    "Combine 1-2 scoops with 8 fl oz of liquid, mix thoroughly."
+                    let DSDesc = self.DSInfo(DSID: 11) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -339,13 +315,7 @@ class HomeViewController: UIViewController {
                     print("012")
                 } else if (predictedDS == "013"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "Natural Factors, Lutein, 20 mg , 30 Softgels" +
-                    "HK$31.78" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "1 Softgel" + "\nServings Per Container:" +
-                    "LuteinRich™ Lutein (Tagetes erecta) (marigold flower extract)      20 mg" + "\n" +
-                    "Zeaxanthin (Tagetes erecta)(marigold flower extract)     3.5 mg" + "\n\nSuggested use\n" +
-                    "1 softgel per day or as directed by a health professional."
+                    let DSDesc = self.DSInfo(DSID: 12) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -353,14 +323,7 @@ class HomeViewController: UIViewController {
                     print("013")
                 } else if (predictedDS == "014"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "Jarrow Formulas, Lutein, 20 mg, 120 Softgels" +
-                    "HK$168.79" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "1 Softgel" + "\nServings Per Container:" +
-                    "120" + "\n\nAmount Per Serving\n" +
-                    "Lutein (Tagetes erecta)(Marigold Petal Extract)    20 mg" + "\n" +
-                    "Zeaxanthin (Tagetes erecta)(Marigold petal extract)    4 mg" + "\n\nSuggested use\n" +
-                    "Take 1 softgel per day with food or as directed by your qualified healthcare professional."
+                    let DSDesc = self.DSInfo(DSID: 13) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -368,18 +331,7 @@ class HomeViewController: UIViewController {
                     print("014")
                 } else if (predictedDS == "015"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "NaturesPlus, Ultra Omega 3/6/9, 120 Softgels" +
-                    "HK$174.11" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "1 Softgel" + "\nServings Per Container:" +
-                    "Calories    15" + "\n" +
-                    "Calories from Fat    10" + "\n" +
-                    "Total Fat    1 g" + "\n" +
-                    "Saturated Fat    0 g" + "\n" +
-                    "Polyunsaturated Fat    0.5 g" + "\n" +
-                    "Vitamin E (mixed tocopherols)    10 IU" + "\n" +
-                    "Omega 3/6/9 Proprietary Blend (non-GMO borage oil, fish oil [sardine and anchovy] and flax oil)    1200 mg" + "\n\nSuggested use\n" +
-                    "As a dietary supplement for essential fatty acids, one softgel three times daily."
+                    let DSDesc = self.DSInfo(DSID: 14) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -387,15 +339,7 @@ class HomeViewController: UIViewController {
                     print("015")
                 } else if (predictedDS == "016"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "Doctor's Best, PepZin GI, Zinc-L-Carnosine Complex, 120 Veggie Caps" +
-                    "HK$146.31" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "2 Veggie Capsules" + "\nServings Per Container:" +
-                    "60" + "\n\nAmount Per Serving\n" +
-                    "Zinc (from PepZin GI Zinc-L-Carnosine)    16 mg" + "\n" +
-                    "Zinc-L-Carnosine (from PepZin GI Zinc-L-Carnosine)    75 mg" + "\n" +
-                    "L-Carnosine (from PepZin GI Zinc-L-Carnosine)    59 mg" + "\n\nSuggested use\n" +
-                    "Take 2 capsules daily on an empty stomach, or as recommended by a nutritionally-informed physician."
+                    let DSDesc = self.DSInfo(DSID: 15) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -403,16 +347,7 @@ class HomeViewController: UIViewController {
                     print("016")
                 } else if (predictedDS == "017"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "NOW Foods, D-Mannose, 500 mg, 120 Veg Capsules" +
-                    "HK$118.67" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "3 Veg Capsules" + "\nServings Per Container:" +
-                    "40" + "\n\nAmount Per Serving\n" +
-                    "Calories    5" + "\n" +
-                    "Total Carbohydrate    1.5 g" + "\n" +
-                    "Total Sugars    1.5 g" + "\n" +
-                    "D-Mannose    1.5 g (1,500 mg)" + "\n\nSuggested use\n" +
-                    "Take 3 capsules 1 to 3 times daily. Take with water or unsweetened juice, such as unsweetened cranberry juice."
+                    let DSDesc = self.DSInfo(DSID: 16) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
@@ -420,18 +355,7 @@ class HomeViewController: UIViewController {
                     print("017")
                 } else if (predictedDS == "018"){
                     self.scanned = UserDefaults.standard.bool(forKey: "Key2")
-                    let DSDesc =
-                    "Nature's Way, Organic MCT Oil, 16 fl oz (480 ml)" +
-                    "HK$146.90" + "- \(predictedDS)" + "\n\n" + "Supplement Facts\n\nServing Size:" +
-                    "1 Tablespoon (15 ml)" + "\nServings Per Container:" +
-                    "32" + "\n\nAmount Per Serving\n" +
-                    "Calories    130" + "\n" +
-                    "Total Fat    14 g" + "\n" +
-                    "Saturated Fat    13 g" + "\n" +
-                    "Medium Chain Triglycerides    14 g" + "\n" +
-                    "Caprylic Acid    7.7 g" + "\n" +
-                    "Capric Acid    5.0 g" + "\n\nSuggested use\n" +
-                    "Adults take 1 tablespoon (15 ml) 1-3 times daily as needed.\nMixes into smoothies, shakes, coffee, and other beverages.\nAdd to your favorite foods such as salads, yogurt, and more.\nNo refrigeration required."
+                    let DSDesc = self.DSInfo(DSID: 17) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
                     UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
                     showScanned()
                     self.scanned = true
