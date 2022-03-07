@@ -36,7 +36,7 @@ class HomeViewController: UIViewController {
         super.viewDidAppear(animated)
         
         HomeView() /* UILayout */
-//        captureLiveVideo() /* imageClassification */
+        captureLiveVideo() /* imageClassification */
         
         /* Voice */
         let utterance = AVSpeechUtterance(string: "Welcome to DS Helper! Please scan information printed on dietary supplements.")
@@ -45,15 +45,6 @@ class HomeViewController: UIViewController {
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.speak(utterance)
         /* Voice end */
-        
-        self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
-        let DSDesc = self.DSInfo(DSID: 2) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-        UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
-        UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
-        showScanned()
-        self.scanned = true
-        UserDefaults.standard.set(String("003"), forKey: "DS_ID") //setObject
-        print("003")
 
 //        print("viewDidAppear OK")
     }
