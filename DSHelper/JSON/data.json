@@ -1,312 +1,256 @@
-
 {
-    "DS":[
-        {
-            "001":{
-                "title": "Sundown Naturals, Calcium, Magnesium & Zinc, 100 Caplets",
-                "price": "HK$34.97",
-                "servingSize": "3 Caplets",
-                "servingsPerContainer": "33",
-                "supplementFacts":{
-                    "supplementFact": "Calcium      1,000 mg / 77%",
-                    "supplementFact2": "Magnesium       400 mg / 95%",
-                    "supplementFact3": "Zinc        25 mg / 227%",
-                    "supplementFact4": "",
-                    "supplementFact5": "",
-                    "supplementFact6": "",
-                    "supplementFact7": ""
-                },
-                "suggestedUse": "For adults, take three (3) caplets daily, preferably with a meal. As a reminder, discuss the supplements and medications you take with your health care providers."
-            }
-        },{
-            "002":{
-                "title": "Source Naturals, B-50 Complex, 50 mg, 100 Tablets",
-                "price": "HK$81.93",
-                "servingSize": "1 Tablet",
-                "servingsPerContainer": "",
-                "supplementFacts":{
-                    "supplementFact": "Vitamin B-1      50 mg / 4,167%",
-                    "supplementFact2": "Vitamin B-2     50 mg / 3,847%",
-                    "supplementFact3": "Niacin      50 mg / 312%",
-                    "supplementFact4": "Vitamin B-6     50 mg / 2,941%",
-                    "supplementFact5": "Folate      1,360 mcg DFE / 340%",
-                    "supplementFact6": "Vitamin B-12        50 mcg / 2,100%",
-                    "supplementFact7": "Biotin      50 mcg / 167%"
-                },
-                "suggestedUse": "1 tablet 1 to 2 times daily."
-            }
-        },{
-            "003":{
-                "title": "Solgar, Magnesium with Vitamin B6, 250 Tablets",
-                "price": "HK$119.24",
-                "servingSize": "3 Tablets",
-                "servingsPerContainer": "83",
-                "supplementFacts":{
-                    "supplementFact": "Vitamin B6       25 mg / 1,471%",
-                    "supplementFact2": "Magnesium       400 mg / 100%",
-                    "supplementFact3": "",
-                    "supplementFact4": "",
-                    "supplementFact5": "",
-                    "supplementFact6": "",
-                    "supplementFact7": ""
-                },
-                "suggestedUse": "As a dietary supplement for adults, take three (3) tablets daily, preferably with a meal or as directed by a healthcare practitioner."
-            }
-        },{
-            "004":{
-                "title": "California Gold Nutrition, Ferrochel Iron (Bisglycinate), 36 mg, 90 Veggie Capsules",
-                "price": "HK$56.90",
-                "servingSize": "1 Capsule",
-                "servingsPerContainer": "90",
-                "supplementFacts":{
-                    "supplementFact": "Iron     36 mg / 200%",
-                    "supplementFact2": "",
-                    "supplementFact3": "",
-                    "supplementFact4": "",
-                    "supplementFact5": "",
-                    "supplementFact6": "",
-                    "supplementFact7": ""
-                },
-                "suggestedUse": "Take 1 capsule daily without food. Best when taken as directed by a qualified healthcare professional."
-            }
-        },{
-            "005":{
-                "title": "California Gold Nutrition, Vitamin C Gummies, Natural Orange Flavor, Gelatin Free, 90 Gummies",
-                "price": "HK$73.15",
-                "servingSize": "3 Gummies",
-                "servingsPerContainer": "30",
-                "supplementFacts":{
-                    "supplementFact": "Calories     30",
-                    "supplementFact2": "Total Carbohydrate      6 g / 2%*",
-                    "supplementFact3": "Total Sugars        6 g",
-                    "supplementFact4": "Includes 6 g Added Sugars       12%*",
-                    "supplementFact5": "Vitamin A     75 mcg / 8%",
-                    "supplementFact6": "Vitamin C     250 mg / 278%",
-                    "supplementFact7": "* Percent Daily Values are based on a 2,000 calorie diet."
-                },
-                "suggestedUse": "Adults and children 4 years of age or older, take 3 gummies daily, with or without food, or as directed by your qualified healthcare professional. Please ensure child chews gummies thoroughly."
-            }
-        },{
-            "006":{
-                "title": "California Gold Nutrition, LactoBif Probiotics, 5 Billion CFU, 10 Veggie Capsules",
-                "price": "HK$8.13",
-                "servingSize": "1 Capsule",
-                "servingsPerContainer": "10",
-                "supplementFacts":{
-                    "supplementFact": "Probiotic Bacteria Blend    5 Billion CFU",
-                    "supplementFact2": "Composed of the following strains:",
-                    "supplementFact3": "La-14",
-                    "supplementFact4": "Bl-04",
-                    "supplementFact5": "Lr-32",
-                    "supplementFact6": "Lp-115",
-                    "supplementFact7": "Bl-05"
-                },
-                "suggestedUse": "Take 1 capsule daily, with or without food. Best when taken as directed by a qualified healthcare professional."
-            }
-        },{
-            "007":{
-                "title": "Life Extension, BioActive Complete B-Complex, 60 Vegetarian Capsules",
-                "price": "HK$80.43",
-                "servingSize": "2 Vegetarian Capsules",
-                "servingsPerContainer": "30",
-                "supplementFacts":{
-                    "supplementFact": "Vitamin B1    100 mg / 8333%",
-                    "supplementFact2": "Vitamin B2    75 mg / 5769%",
-                    "supplementFact3": "Niacin     100 mg• / 625%",
-                    "supplementFact4": "Vitamin B6     100 mg / 5882%",
-                    "supplementFact5": "Folate     680 mcg○ / 170%",
-                    "supplementFact6": "Vitamin B12     300 mcg / 12500%",
-                    "supplementFact7": "•NE (niacin equivalents) ○DFE (dietary folate equivalents)"
-                },
-                "suggestedUse": "Read the entire label and follow the directions carefully prior to use. Take two (2) capsules daily with food, or as recommended by a healthcare practitioner."
-            }
-        },{
-            "008":{
-                "title": "Sports Research, Omega-3 Fish Oil, Triple Strength, 1,250 mg , 120 Softgels",
-                "price": "HK$252.47",
-                "servingSize": "1 Liquid Softgel",
-                "servingsPerContainer": "120",
-                "supplementFacts":{
-                    "supplementFact": "Calories     15",
-                    "supplementFact2": "Total Fat    1.5 g / 2%**",
-                    "supplementFact3": "Omega-3 Fish Oil Concentrate from Wild Caught Fish    1250 mg",
-                    "supplementFact4": "Total Omega-3 Fatty Acids as TG     1055 mg",
-                    "supplementFact5": "Eicosapentaenoic Acid    685 mg",
-                    "supplementFact6": "Docosahexaenoic Acid    310 mg",
-                    "supplementFact7": "**Percent Daily Values (DV) are based on a 2,000 calorie diet."
-                },
-                "suggestedUse": "As a dietary supplement, healthy adults take 1 Liquid Softgel daily with food. Best when taken as directed by a qualified healthcare professional."
-            }
-        },{
-            "009":{
-                "title": "California Gold Nutrition, Immune 4, 60 Veggie Capsules",
-                "price": "HK$8.13",
-                "servingSize": "1 Capsule",
-                "servingsPerContainer": "60",
-                "supplementFacts":{
-                    "supplementFact": "Vitamin C     500 mg / 556%",
-                    "supplementFact2": "Vitamin D     25 mcg / 125%",
-                    "supplementFact3": "Zinc     10 mg / 91%",
-                    "supplementFact4": "Selenium     50 mcg / 91%",
-                    "supplementFact5": "",
-                    "supplementFact6": "",
-                    "supplementFact7": ""
-                },
-                "suggestedUse": "Take 1 capsule, once or twice daily with food. Best when taken as directed by a qualified healthcare professional."
-            }
-        },{
-            "010":{
-                "title": "Natrol, Biotin, Maximum Strength, 10,000 mcg, 100 Tablets",
-                "price": "HK$81.90",
-                "servingSize": "1 Tablet",
-                "servingsPerContainer": "100",
-                "supplementFacts":{
-                    "supplementFact": "Biotin    10,000 mcg / 33,330%",
-                    "supplementFact2": "Calcium     66 mg / 4%",
-                    "supplementFact3": "",
-                    "supplementFact4": "",
-                    "supplementFact5": "",
-                    "supplementFact6": "",
-                    "supplementFact7": ""
-                },
-                "suggestedUse": "Take 1 tablet, one time daily, with a meal."
-            }
-        },{
-            "011":{
-                "title": "ChildLife, Vitamin D3, Natural Berry Flavor, 1 fl oz (30 ml)",
-                "price": "HK$58.20",
-                "servingSize": "8 drops",
-                "servingsPerContainer": "115",
-                "supplementFacts":{
-                    "supplementFact": "Vitamin D3    500 IU / 125%",
-                    "supplementFact2": "",
-                    "supplementFact3": "",
-                    "supplementFact4": "",
-                    "supplementFact5": "",
-                    "supplementFact6": "",
-                    "supplementFact7": ""
-                },
-                "suggestedUse": "Infants 0 - 12: 6 drops daily. Children 1+ yrs: 8 drops daily. Shake well before use. Give directly or mix in your child's favorite drink."
-            }
-        },{
-            "012":{
-                "title": "Vital Proteins, Collagen Peptides, Unflavored, 1.25 lbs (567 g)",
-                "price": "HK$308.07",
-                "servingSize": "2 Scoops (20 g)",
-                "servingsPerContainer": "About 28",
-                "supplementFacts":{
-                    "supplementFact": "Calories    70",
-                    "supplementFact2": "Protein    18 g / 0%*",
-                    "supplementFact3": "Sodium    110 mg / 5%",
-                    "supplementFact4": "Collagen peptides    20 g",
-                    "supplementFact5": "*Percent Daily Values (DV) based on a 2,000 calorie diet.",
-                    "supplementFact6": "Typical Amino Acid Profile",
-                    "supplementFact7": "Contains 8 of 9 Essential Amino Acids"
-                },
-                "suggestedUse": "Combine 1-2 scoops with 8 fl oz of liquid, mix thoroughly."
-            }
-        },{
-            "013":{
-                "title": "Natural Factors, Lutein, 20 mg , 30 Softgels",
-                "price": "HK$35.31",
-                "servingSize": "1 Softgel",
-                "servingsPerContainer": "",
-                "supplementFacts":{
-                    "supplementFact": "LuteinRich™ Lutein (marigold flower extract)      20 mg",
-                    "supplementFact2": "Zeaxanthin (marigold flower extract)     3.5 mg",
-                    "supplementFact3": "",
-                    "supplementFact4": "",
-                    "supplementFact5": "",
-                    "supplementFact6": "",
-                    "supplementFact7": ""
-                },
-                "suggestedUse": "1 softgel per day or as directed by a health professional."
-            }
-        },{
-            "014":{
-                "title": "Jarrow Formulas, Lutein, 20 mg, 120 Softgels",
-                "price": "HK$168.79",
-                "servingSize": "1 Softgel",
-                "servingsPerContainer": "120",
-                "supplementFacts":{
-                    "supplementFact": "Lutein (Marigold Petal Extract)    20 mg",
-                    "supplementFact2": "Zeaxanthin (Marigold petal extract)    4 mg",
-                    "supplementFact3": "",
-                    "supplementFact4": "",
-                    "supplementFact5": "",
-                    "supplementFact6": "",
-                    "supplementFact7": ""
-                },
-                "suggestedUse": "Take 1 softgel per day with food or as directed by your qualified healthcare professional."
-            }
-        },{
-            "015":{
-                "title": "NaturesPlus, Ultra Omega 3/6/9, 120 Softgels",
-                "price": "HK$174.11",
-                "servingSize": "1 Softgel",
-                "servingsPerContainer": "",
-                "supplementFacts":{
-                    "supplementFact": "Calories    15",
-                    "supplementFact2": "Calories from Fat    10",
-                    "supplementFact3": "Total Fat    1 g / 1%",
-                    "supplementFact4": "Saturated Fat    0 g / 0%",
-                    "supplementFact5": "Polyunsaturated Fat    0.5 g",
-                    "supplementFact6": "Monounsaturated Fat    0 g",
-                    "supplementFact7": "Cholesterol    <5 mg / 2%"
-                },
-                "suggestedUse": "As a dietary supplement for essential fatty acids, one softgel three times daily."
-            }
-        },{
-            "016":{
-                "title": "Doctor's Best, PepZin GI, Zinc-L-Carnosine Complex, 120 Veggie Caps",
-                "price": "HK$146.31",
-                "servingSize": "2 Veggie Capsules",
-                "servingsPerContainer": "60",
-                "supplementFacts":{
-                    "supplementFact": "Zinc    16 mg / 150%",
-                    "supplementFact2": "Zinc-L-Carnosine    75 mg",
-                    "supplementFact3": "L-Carnosine    59 mg",
-                    "supplementFact4": "",
-                    "supplementFact5": "",
-                    "supplementFact6": "",
-                    "supplementFact7": ""
-                },
-                "suggestedUse": "Take 2 capsules daily on an empty stomach, or as recommended by a nutritionally-informed physician."
-            }
-        },{
-            "017":{
-                "title": "NOW Foods, D-Mannose, 500 mg, 120 Veg Capsules",
-                "price": "HK$118.67",
-                "servingSize": "3 Veg Capsules",
-                "servingsPerContainer": "40",
-                "supplementFacts":{
-                    "supplementFact": "Calories    5",
-                    "supplementFact2": "Total Carbohydrate    1.5 g / <1%*",
-                    "supplementFact3": "Total Sugars    1.5 g",
-                    "supplementFact4": "D-Mannose    1.5 g (1,500 mg)",
-                    "supplementFact5": "* Percent Daily Values are based on a 2,000 calorie diet.",
-                    "supplementFact6": "",
-                    "supplementFact7": ""
-                },
-                "suggestedUse": "Take 3 capsules 1 to 3 times daily. Take with water or unsweetened juice, such as unsweetened cranberry juice."
-            }
-        },{
-            "018":{
-                "title": "Nature's Way, Organic MCT Oil, 16 fl oz (480 ml)",
-                "price": "HK$146.90",
-                "servingSize": "1 Tablespoon (15 ml)",
-                "servingsPerContainer": "32",
-                "supplementFacts":{
-                    "supplementFact": "Calories    130",
-                    "supplementFact2": "Total Fat    14 g / 18%†",
-                    "supplementFact3": "Saturated Fat    13 g / 65%†",
-                    "supplementFact4": "Trans Fat    0 g",
-                    "supplementFact5": "Polyunsaturated Fat    0 g",
-                    "supplementFact6": "Monounsaturated Fat    0 g",
-                    "supplementFact7": "†Percent Daily Values (DV) are based on a 2,000 calorie diet."
-                },
-                "suggestedUse": "Adults take 1 tablespoon (15 ml) 1-3 times daily as needed. Mixes into smoothies, shakes, coffee, and other beverages. Add to your favorite foods such as salads, yogurt, and more. No refrigeration required."
-            }
-        }
-    ]
+   "DietarySupplements":[
+      {
+         "title":"Sundown Naturals, Calcium, Magnesium & Zinc, 100 Caplets",
+         "price":"HK$34.97",
+         "servingSize":"3 Caplets",
+         "servingsPerContainer":"33",
+         "supplementFact":"Calcium      1,000 mg / 77%",
+         "supplementFact2":"Magnesium       400 mg / 95%",
+         "supplementFact3":"Zinc        25 mg / 227%",
+         "supplementFact4":"",
+         "supplementFact5":"",
+         "supplementFact6":"",
+         "supplementFact7":"",
+         "suggestedUse":"For adults, take three (3) caplets daily, preferably with a meal. As a reminder, discuss the supplements and medications you take with your health care providers."
+      },
+      {
+         "title":"Source Naturals, B-50 Complex, 50 mg, 100 Tablets",
+         "price":"HK$81.93",
+         "servingSize":"1 Tablet",
+         "servingsPerContainer":"",
+         "supplementFact":"Vitamin B-1      50 mg / 4,167%",
+         "supplementFact2":"Vitamin B-2     50 mg / 3,847%",
+         "supplementFact3":"Niacin      50 mg / 312%",
+         "supplementFact4":"Vitamin B-6     50 mg / 2,941%",
+         "supplementFact5":"Folate      1,360 mcg DFE / 340%",
+         "supplementFact6":"Vitamin B-12        50 mcg / 2,100%",
+         "supplementFact7":"Biotin      50 mcg / 167%",
+         "suggestedUse":"1 tablet 1 to 2 times daily."
+      },
+      {
+         "title":"Solgar, Magnesium with Vitamin B6, 250 Tablets",
+         "price":"HK$119.24",
+         "servingSize":"3 Tablets",
+         "servingsPerContainer":"83",
+         "supplementFact":"Vitamin B6       25 mg / 1,471%",
+         "supplementFact2":"Magnesium       400 mg / 100%",
+         "supplementFact3":"",
+         "supplementFact4":"",
+         "supplementFact5":"",
+         "supplementFact6":"",
+         "supplementFact7":"",
+         "suggestedUse":"As a dietary supplement for adults, take three (3) tablets daily, preferably with a meal or as directed by a healthcare practitioner."
+      },
+      {
+         "title":"California Gold Nutrition, Ferrochel Iron (Bisglycinate), 36 mg, 90 Veggie Capsules",
+         "price":"HK$56.90",
+         "servingSize":"1 Capsule",
+         "servingsPerContainer":"90",
+         "supplementFact":"Iron     36 mg / 200%",
+         "supplementFact2":"",
+         "supplementFact3":"",
+         "supplementFact4":"",
+         "supplementFact5":"",
+         "supplementFact6":"",
+         "supplementFact7":"",
+         "suggestedUse":"Take 1 capsule daily without food. Best when taken as directed by a qualified healthcare professional."
+      },
+      {
+         "title":"California Gold Nutrition, Vitamin C Gummies, Natural Orange Flavor, Gelatin Free, 90 Gummies",
+         "price":"HK$73.15",
+         "servingSize":"3 Gummies",
+         "servingsPerContainer":"30",
+         "supplementFact":"Calories     30",
+         "supplementFact2":"Total Carbohydrate      6 g / 2%*",
+         "supplementFact3":"Total Sugars        6 g",
+         "supplementFact4":"Includes 6 g Added Sugars       12%*",
+         "supplementFact5":"Vitamin A     75 mcg / 8%",
+         "supplementFact6":"Vitamin C     250 mg / 278%",
+         "supplementFact7":"* Percent Daily Values are based on a 2,000 calorie diet.",
+         "suggestedUse":"Adults and children 4 years of age or older, take 3 gummies daily, with or without food, or as directed by your qualified healthcare professional. Please ensure child chews gummies thoroughly."
+      },
+      {
+         "title":"California Gold Nutrition, LactoBif Probiotics, 5 Billion CFU, 10 Veggie Capsules",
+         "price":"HK$8.13",
+         "servingSize":"1 Capsule",
+         "servingsPerContainer":"10",
+         "supplementFact":"Probiotic Bacteria Blend    5 Billion CFU",
+         "supplementFact2":"Composed of the following strains:",
+         "supplementFact3":"La-14",
+         "supplementFact4":"Bl-04",
+         "supplementFact5":"Lr-32",
+         "supplementFact6":"Lp-115",
+         "supplementFact7":"Bl-05",
+         "suggestedUse":"Take 1 capsule daily, with or without food. Best when taken as directed by a qualified healthcare professional."
+      },
+      {
+         "title":"Life Extension, BioActive Complete B-Complex, 60 Vegetarian Capsules",
+         "price":"HK$80.43",
+         "servingSize":"2 Vegetarian Capsules",
+         "servingsPerContainer":"30",
+         "supplementFact":"Vitamin B1    100 mg / 8333%",
+         "supplementFact2":"Vitamin B2    75 mg / 5769%",
+         "supplementFact3":"Niacin     100 mg• / 625%",
+         "supplementFact4":"Vitamin B6     100 mg / 5882%",
+         "supplementFact5":"Folate     680 mcg○ / 170%",
+         "supplementFact6":"Vitamin B12     300 mcg / 12500%",
+         "supplementFact7":"•NE (niacin equivalents) ○DFE (dietary folate equivalents)",
+         "suggestedUse":"Read the entire label and follow the directions carefully prior to use. Take two (2) capsules daily with food, or as recommended by a healthcare practitioner."
+      },
+      {
+         "title":"Sports Research, Omega-3 Fish Oil, Triple Strength, 1,250 mg , 120 Softgels",
+         "price":"HK$252.47",
+         "servingSize":"1 Liquid Softgel",
+         "servingsPerContainer":"120",
+         "supplementFact":"Calories     15",
+         "supplementFact2":"Total Fat    1.5 g / 2%**",
+         "supplementFact3":"Omega-3 Fish Oil Concentrate from Wild Caught Fish    1250 mg",
+         "supplementFact4":"Total Omega-3 Fatty Acids as TG     1055 mg",
+         "supplementFact5":"Eicosapentaenoic Acid    685 mg",
+         "supplementFact6":"Docosahexaenoic Acid    310 mg",
+         "supplementFact7":"**Percent Daily Values (DV) are based on a 2,000 calorie diet.",
+         "suggestedUse":"As a dietary supplement, healthy adults take 1 Liquid Softgel daily with food. Best when taken as directed by a qualified healthcare professional."
+      },
+      {
+         "title":"California Gold Nutrition, Immune 4, 60 Veggie Capsules",
+         "price":"HK$8.13",
+         "servingSize":"1 Capsule",
+         "servingsPerContainer":"60",
+         "supplementFact":"Vitamin C     500 mg / 556%",
+         "supplementFact2":"Vitamin D     25 mcg / 125%",
+         "supplementFact3":"Zinc     10 mg / 91%",
+         "supplementFact4":"Selenium     50 mcg / 91%",
+         "supplementFact5":"",
+         "supplementFact6":"",
+         "supplementFact7":"",
+         "suggestedUse":"Take 1 capsule, once or twice daily with food. Best when taken as directed by a qualified healthcare professional."
+      },
+      {
+         "title":"Natrol, Biotin, Maximum Strength, 10,000 mcg, 100 Tablets",
+         "price":"HK$81.90",
+         "servingSize":"1 Tablet",
+         "servingsPerContainer":"100",
+         "supplementFact":"Biotin    10,000 mcg / 33,330%",
+         "supplementFact2":"Calcium     66 mg / 4%",
+         "supplementFact3":"",
+         "supplementFact4":"",
+         "supplementFact5":"",
+         "supplementFact6":"",
+         "supplementFact7":"",
+         "suggestedUse":"Take 1 tablet, one time daily, with a meal."
+      },
+      {
+         "title":"ChildLife, Vitamin D3, Natural Berry Flavor, 1 fl oz (30 ml)",
+         "price":"HK$58.20",
+         "servingSize":"8 drops",
+         "servingsPerContainer":"115",
+         "supplementFact":"Vitamin D3    500 IU / 125%",
+         "supplementFact2":"",
+         "supplementFact3":"",
+         "supplementFact4":"",
+         "supplementFact5":"",
+         "supplementFact6":"",
+         "supplementFact7":"",
+         "suggestedUse":"Infants 0 - 12: 6 drops daily. Children 1+ yrs: 8 drops daily. Shake well before use. Give directly or mix in your child's favorite drink."
+      },
+      {
+         "title":"Vital Proteins, Collagen Peptides, Unflavored, 1.25 lbs (567 g)",
+         "price":"HK$308.07",
+         "servingSize":"2 Scoops (20 g)",
+         "servingsPerContainer":"About 28",
+         "supplementFact":"Calories    70",
+         "supplementFact2":"Protein    18 g / 0%*",
+         "supplementFact3":"Sodium    110 mg / 5%",
+         "supplementFact4":"Collagen peptides    20 g",
+         "supplementFact5":"*Percent Daily Values (DV) based on a 2,000 calorie diet.",
+         "supplementFact6":"Typical Amino Acid Profile",
+         "supplementFact7":"Contains 8 of 9 Essential Amino Acids",
+         "suggestedUse":"Combine 1-2 scoops with 8 fl oz of liquid, mix thoroughly."
+      },
+      {
+         "title":"Natural Factors, Lutein, 20 mg , 30 Softgels",
+         "price":"HK$35.31",
+         "servingSize":"1 Softgel",
+         "servingsPerContainer":"",
+         "supplementFact":"LuteinRich™ Lutein (marigold flower extract)      20 mg",
+         "supplementFact2":"Zeaxanthin (marigold flower extract)     3.5 mg",
+         "supplementFact3":"",
+         "supplementFact4":"",
+         "supplementFact5":"",
+         "supplementFact6":"",
+         "supplementFact7":"",
+         "suggestedUse":"1 softgel per day or as directed by a health professional."
+      },
+      {
+         "title":"Jarrow Formulas, Lutein, 20 mg, 120 Softgels",
+         "price":"HK$168.79",
+         "servingSize":"1 Softgel",
+         "servingsPerContainer":"120",
+         "supplementFact":"Lutein (Marigold Petal Extract)    20 mg",
+         "supplementFact2":"Zeaxanthin (Marigold petal extract)    4 mg",
+         "supplementFact3":"",
+         "supplementFact4":"",
+         "supplementFact5":"",
+         "supplementFact6":"",
+         "supplementFact7":"",
+         "suggestedUse":"Take 1 softgel per day with food or as directed by your qualified healthcare professional."
+      },
+      {
+         "title":"NaturesPlus, Ultra Omega 3/6/9, 120 Softgels",
+         "price":"HK$174.11",
+         "servingSize":"1 Softgel",
+         "servingsPerContainer":"",
+         "supplementFact":"Calories    15",
+         "supplementFact2":"Calories from Fat    10",
+         "supplementFact3":"Total Fat    1 g / 1%",
+         "supplementFact4":"Saturated Fat    0 g / 0%",
+         "supplementFact5":"Polyunsaturated Fat    0.5 g",
+         "supplementFact6":"Monounsaturated Fat    0 g",
+         "supplementFact7":"Cholesterol    <5 mg / 2%",
+         "suggestedUse":"As a dietary supplement for essential fatty acids, one softgel three times daily."
+      },
+      {
+         "title":"Doctor's Best, PepZin GI, Zinc-L-Carnosine Complex, 120 Veggie Caps",
+         "price":"HK$146.31",
+         "servingSize":"2 Veggie Capsules",
+         "servingsPerContainer":"60",
+         "supplementFact":"Zinc    16 mg / 150%",
+         "supplementFact2":"Zinc-L-Carnosine    75 mg",
+         "supplementFact3":"L-Carnosine    59 mg",
+         "supplementFact4":"",
+         "supplementFact5":"",
+         "supplementFact6":"",
+         "supplementFact7":"",
+         "suggestedUse":"Take 2 capsules daily on an empty stomach, or as recommended by a nutritionally-informed physician."
+      },
+      {
+         "title":"NOW Foods, D-Mannose, 500 mg, 120 Veg Capsules",
+         "price":"HK$118.67",
+         "servingSize":"3 Veg Capsules",
+         "servingsPerContainer":"40",
+         "supplementFact":"Calories    5",
+         "supplementFact2":"Total Carbohydrate    1.5 g / <1%*",
+         "supplementFact3":"Total Sugars    1.5 g",
+         "supplementFact4":"D-Mannose    1.5 g (1,500 mg)",
+         "supplementFact5":"* Percent Daily Values are based on a 2,000 calorie diet.",
+         "supplementFact6":"",
+         "supplementFact7":"",
+         "suggestedUse":"Take 3 capsules 1 to 3 times daily. Take with water or unsweetened juice, such as unsweetened cranberry juice."
+      },
+      {
+         "title":"Nature's Way, Organic MCT Oil, 16 fl oz (480 ml)",
+         "price":"HK$146.90",
+         "servingSize":"1 Tablespoon (15 ml)",
+         "servingsPerContainer":"32",
+         "supplementFact":"Calories    130",
+         "supplementFact2":"Total Fat    14 g / 18%†",
+         "supplementFact3":"Saturated Fat    13 g / 65%†",
+         "supplementFact4":"Trans Fat    0 g",
+         "supplementFact5":"Polyunsaturated Fat    0 g",
+         "supplementFact6":"Monounsaturated Fat    0 g",
+         "supplementFact7":"†Percent Daily Values (DV) are based on a 2,000 calorie diet.",
+         "suggestedUse":"Adults take 1 tablespoon (15 ml) 1-3 times daily as needed. Mixes into smoothies, shakes, coffee, and other beverages. Add to your favorite foods such as salads, yogurt, and more. No refrigeration required."
+      }
+   ]
 }

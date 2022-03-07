@@ -3,32 +3,12 @@ import UIKit
 import AVFoundation /* Voice */
 import Vision /* imageClassification */
 
-/* JSON */
-// JSON structure
-struct DS: Codable {
-    var title: String
-    var price: String
-    var servingSize: String
-    var servingsPerContainer: String
-    var supplementFact: String
-    var supplementFact2: String
-    var supplementFact3: String
-    var supplementFact4: String
-    var supplementFact5: String
-    var supplementFact6: String
-    var supplementFact7: String
-    var suggestedUse: String
-}
-struct DSs: Codable {
-    var results: [DS]
-}
-/* JSON end */
-
 class HomeViewController: UIViewController {
     
     var dss = [DS]() /* JSON */
     
     var scanned = false
+    var DSName = String()
     
     var captureSession = AVCaptureSession() // Create capture session /* imageClassification */
     /* imageClassification2 */
@@ -56,7 +36,7 @@ class HomeViewController: UIViewController {
         super.viewDidAppear(animated)
         
         HomeView() /* UILayout */
-        captureLiveVideo() /* imageClassification */
+//        captureLiveVideo() /* imageClassification */
         
         /* Voice */
         let utterance = AVSpeechUtterance(string: "Welcome to DS Helper! Please scan information printed on dietary supplements.")
@@ -66,6 +46,15 @@ class HomeViewController: UIViewController {
         synthesizer.speak(utterance)
         /* Voice end */
         
+        self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
+        let DSDesc = self.DSInfo(DSID: 2) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
+        UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+        UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
+        showScanned()
+        self.scanned = true
+        UserDefaults.standard.set(String("003"), forKey: "DS_ID") //setObject
+        print("003")
+
 //        print("viewDidAppear OK")
     }
     
@@ -73,13 +62,28 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 //        print("viewDidLoad OK")
     }
-    
+    func showScanned(){
+        if (self.scanned == false) {
+            if #available(iOS 13.0, *) { // View present style 1
+                //                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                if let vc = self.storyboard?.instantiateViewController(identifier: "scannedView") {
+                    //                            vc.isModalInPresentation = true
+                    //                            vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
+                }
+            } else {
+                // Fallback on earlier versions
+                fatalError("Please update to iOS 13.0 or above")
+            }
+        }
+        print("showScanned OK")
+    }
     /* JSON2 */
     // Use the two methods we created to reading JSON
     private func DSInfo(DSID rowNo: Int) -> String?{
         // 1. Reading the local data.json file.
-        if let localData = self.readLocalFile(forName: "data") {
-            self.parse(jsonData: localData)
+        if let localData = readLocalFile(forName: "data") {
+            parse(jsonData: localData)
         }
         // 2. Read and print the contents of the hosted JSON file.
 //        let urlString = "https://raw.githubusercontent.com/programmingwithswift/ReadJSONFileURL/master/hostedDataFile.json"
@@ -92,7 +96,8 @@ class HomeViewController: UIViewController {
 //            }
 //        }
         let ds = dss[rowNo]
-        let DSInformation = "\(ds.title)" + "\(ds.price)" + "\n\nSupplement Facts\nServing Size:\(ds.servingSize)" + "\nServings Per Container:\(ds.servingsPerContainer)" + "\nAmount Per Serving / % Daily Value\n\(ds.supplementFact)" + "\n\(ds.supplementFact2)" + "\n\(ds.supplementFact3)" + "\n\(ds.supplementFact4)" + "\n\(ds.supplementFact5)" + "\n\(ds.supplementFact6)" + "\n\(ds.supplementFact7)" + "\n\nSuggested use\n\(ds.suggestedUse)"
+        DSName = "\(ds.title)"
+        let DSInformation = "\(ds.title)" + " \(ds.price)" + "\n\nSupplement Facts\nServing Size: \(ds.servingSize)" + "\nServings Per Container: \(ds.servingsPerContainer)" + "\nAmount Per Serving / % Daily Value\n\(ds.supplementFact)" + "\n\(ds.supplementFact2)" + "\n\(ds.supplementFact3)" + "\n\(ds.supplementFact4)" + "\n\(ds.supplementFact5)" + "\n\(ds.supplementFact6)" + "\n\(ds.supplementFact7)" + "\n\nSuggested use\n\(ds.suggestedUse)"
         return DSInformation
     }
     /* JSON2 end */
@@ -128,12 +133,27 @@ class HomeViewController: UIViewController {
     private func parse(jsonData: Data) {
         do {
             let decodedData = try JSONDecoder().decode(DSs.self, from: jsonData)
-            dss = decodedData.results
+            dss = decodedData.DietarySupplements
         } catch {
             print("decode error")
         }
     }
     /* JSON3 end */
+    
+    @IBAction private func showScannedView(_ sender: UIButton){
+        if #available(iOS 13.0, *) { // View present style 1
+            //                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let vc = self.storyboard?.instantiateViewController(identifier: "scannedView") {
+                //                            vc.isModalInPresentation = true
+                //                            vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
+            }
+        } else {
+            // Fallback on earlier versions
+            fatalError("Please update to iOS 13.0 or above")
+        }
+        print("showScannedView OK")
+    }
     
     /* imageClassification */
     // Capture Live Video
@@ -218,145 +238,163 @@ class HomeViewController: UIViewController {
                 }
                 // Matching
                 if (predictedDS == "001"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 0) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("001")
                 } else if (predictedDS == "002"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 1) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("002")
                 } else if (predictedDS == "003"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 2) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("003")
                 } else if (predictedDS == "004"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 3) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("004")
                 } else if (predictedDS == "005"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 4) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("005")
                 } else if (predictedDS == "006"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 5) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("006")
                 } else if (predictedDS == "007"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 6) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("007")
                 } else if (predictedDS == "008"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 7) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("008")
                 } else if (predictedDS == "009"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 8) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("009")
                 } else if (predictedDS == "010"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 9) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("010")
                 } else if (predictedDS == "011"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 10) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("011")
                 } else if (predictedDS == "012"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 11) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("012")
                 } else if (predictedDS == "013"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 12) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("013")
                 } else if (predictedDS == "014"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 13) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("014")
                 } else if (predictedDS == "015"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 14) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("015")
                 } else if (predictedDS == "016"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 15) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("016")
                 } else if (predictedDS == "017"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 16) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
                     print("017")
                 } else if (predictedDS == "018"){
-                    self.scanned = UserDefaults.standard.bool(forKey: "Key2")
+                    self.scanned = UserDefaults.standard.bool(forKey: "Scanned")
                     let DSDesc = self.DSInfo(DSID: 17) // DSID, Int, Int = parsed JSON data array row number, 0 = data of DS "001", 1 = data of DS "002"...
-                    UserDefaults.standard.set(DSDesc, forKey: "Key") //setObject
+                    UserDefaults.standard.set(DSDesc, forKey: "DSDesc") //setObject
+                    UserDefaults.standard.set(self.DSName, forKey: "DSName") //setObject
                     showScanned()
                     self.scanned = true
                     UserDefaults.standard.set(String(predictedDS), forKey: "DS_ID") //setObject
@@ -501,8 +539,10 @@ extension HomeViewController {
         label.centerXAnchor.constraint(equalTo: parent.centerXAnchor, constant: -0.5).isActive = true
         label.bottomAnchor.constraint(equalTo: parent.bottomAnchor, constant: -44).isActive = true
         
-        let smartPhoneIcon = UIImageView(image: UIImage(named: "smartphone_black_24dp"))
+        let smartPhoneIcon = UIButton()
+        smartPhoneIcon.setBackgroundImage(UIImage(named: "smartphone_black_24dp"), for: .normal)
         smartPhoneIcon.frame = CGRect(x: 0, y: 0, width: 105, height: 105)
+        smartPhoneIcon.addTarget(self, action: #selector(showScannedView(_:)), for: .touchUpInside)
         parent.addSubview(smartPhoneIcon)
         smartPhoneIcon.translatesAutoresizingMaskIntoConstraints = false
         smartPhoneIcon.widthAnchor.constraint(equalToConstant: 105).isActive = true

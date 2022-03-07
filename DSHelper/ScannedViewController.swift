@@ -10,8 +10,8 @@ import AVFoundation /* Voice */
 
 class ScannedViewController: UIViewController {
     
-    // DS description and ID
-    var DSDesc = UserDefaults.standard.string(forKey: "Key") ?? "Welcome to DS Helper!"
+    var DSName = UserDefaults.standard.string(forKey: "DSName") ?? "Welcome to DS Helper!"
+    var DSDesc = UserDefaults.standard.string(forKey: "DSDesc") ?? "Welcome to DS Helper!"
     var DS_ID = UserDefaults.standard.string(forKey: "DS_ID") ?? "000"
     /* Voice2 */
     var voiceIcon = UIButton()
@@ -19,12 +19,18 @@ class ScannedViewController: UIViewController {
     /* Voice2 end */
     // Bookmark
     let bookmarkIcon = UIButton()
+    let bookmarksIcon = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         ScannedView() /* UILayout */
+        
+        // If DSArray does not exist
+        guard (UserDefaults.standard.array(forKey: "DSArray") != nil) else {
+            return bookmarksIcon.isEnabled = false
+        }
         
         synthesizer.delegate = self /* Voice2 */
     }
@@ -49,15 +55,16 @@ class ScannedViewController: UIViewController {
             print([DS_ID])
         }
         
-        if var DSDescArray = UserDefaults.standard.array(forKey: "DSDescArray") {
+        if var DSNameArray = UserDefaults.standard.array(forKey: "DSNameArray") {
             //To add a new element to the end of an Array.
-            DSDescArray.append(DSDesc)
-            UserDefaults.standard.set(DSDescArray, forKey: "DSDescArray") //setObject
-            print(DSDescArray)
+            DSNameArray.append(DSName)
+            UserDefaults.standard.set(DSNameArray, forKey: "DSNameArray") //setObject
+            print(DSNameArray)
         } else {
-            UserDefaults.standard.set([DSDesc], forKey: "DSDescArray") //setObject
-            print([DSDesc])
+            UserDefaults.standard.set([DSName], forKey: "DSNameArray") //setObject
+            print([DSName])
         }
+        bookmarksIcon.isEnabled = true
     }
     /* Voice */
     @objc private func textToSpeech(){
@@ -73,7 +80,7 @@ class ScannedViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isBeingDismissed {
-            UserDefaults.standard.set(false, forKey: "Key2") //Bool
+            UserDefaults.standard.set(false, forKey: "Scanned") //Bool
             bookmarkIcon.isEnabled = true
         }
     }
@@ -102,30 +109,30 @@ extension ScannedViewController{
         self.view.backgroundColor = .clear
         
         let view = UIView()
-        view.frame = CGRect(x: 0, y: 0, width: 390, height: 804)
+        view.frame = CGRect(x: 0, y: 0, width: 390, height: 830)
         view.layer.backgroundColor = UIColor(red: 1, green: 0.008, blue: 0.4, alpha: 1).cgColor
         view.layer.cornerRadius = 64
         parent.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: 390).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 804).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 830).isActive = true
         view.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 0).isActive = true
-        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 90).isActive = true
+        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 60).isActive = true
         
         let label = UILabel()
-        label.frame = CGRect(x: 0, y: 0, width: 360, height: 550)
+        label.frame = CGRect(x: 0, y: 0, width: 360, height: 570)
         label.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
 //        label.font = UIFont.systemFont(ofSize: 18.0)
-        label.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
+        label.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.text = DSDesc
         parent.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.widthAnchor.constraint(equalToConstant: 360).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 550).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 570).isActive = true
         label.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 20).isActive = true
-        label.topAnchor.constraint(equalTo: parent.topAnchor, constant: 140).isActive = true
+        label.topAnchor.constraint(equalTo: parent.topAnchor, constant: 75).isActive = true
         
         voiceIcon.setBackgroundImage(UIImage(named: "campaign_black_24dp") , for: .normal)
         voiceIcon.frame = CGRect(x: 0, y: 0, width: 94, height: 94)
@@ -145,9 +152,8 @@ extension ScannedViewController{
         dragHandlerIcon.widthAnchor.constraint(equalToConstant: 87).isActive = true
         dragHandlerIcon.heightAnchor.constraint(equalToConstant: 87).isActive = true
         dragHandlerIcon.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 151).isActive = true
-        dragHandlerIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 65).isActive = true
+        dragHandlerIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 35).isActive = true
         
-        let bookmarksIcon = UIButton()
         bookmarksIcon.setBackgroundImage(UIImage(named: "bookmarks_black_24dp") , for: .normal)
         bookmarksIcon.frame = CGRect(x: 0, y: 0, width: 70, height: 70)
         bookmarksIcon.addTarget(self, action: #selector(toBookmarksView), for: .touchUpInside)
@@ -156,7 +162,7 @@ extension ScannedViewController{
         bookmarksIcon.widthAnchor.constraint(equalToConstant: 70).isActive = true
         bookmarksIcon.heightAnchor.constraint(equalToConstant: 70).isActive = true
         bookmarksIcon.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 290).isActive = true
-        bookmarksIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 15).isActive = true
+        bookmarksIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: -7.5).isActive = true
 
         bookmarkIcon.setBackgroundImage(UIImage(named: "bookmark_border_black_24dp") , for: .normal)
         bookmarkIcon.frame = CGRect(x: 0, y: 0, width: 70, height: 70)
@@ -166,7 +172,7 @@ extension ScannedViewController{
         bookmarkIcon.widthAnchor.constraint(equalToConstant: 70).isActive = true
         bookmarkIcon.heightAnchor.constraint(equalToConstant: 70).isActive = true
         bookmarkIcon.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 19).isActive = true
-        bookmarkIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: 15).isActive = true
+        bookmarkIcon.topAnchor.constraint(equalTo: parent.topAnchor, constant: -7.5).isActive = true
     }
 }
 /* UILayout end */

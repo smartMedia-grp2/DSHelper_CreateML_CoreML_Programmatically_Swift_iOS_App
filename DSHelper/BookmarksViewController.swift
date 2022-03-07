@@ -9,11 +9,12 @@ import UIKit
 
 class BookmarksViewController: UIViewController {
     
-    // DS description
-    var DSDesc2 = UserDefaults.standard.string(forKey: "Key")!
-    // DS array
     var DSArray = UserDefaults.standard.stringArray(forKey: "DSArray")!
-    var DSDescArray = UserDefaults.standard.stringArray(forKey: "DSDescArray")!
+    var DSNameArray = UserDefaults.standard.stringArray(forKey: "DSNameArray")!
+    
+    var btn = UIButton()
+    var btn2 = UIButton()
+    var btn3 = UIButton()
 
     /* UILayout */
     private let scrollView: UIScrollView = {
@@ -42,8 +43,8 @@ class BookmarksViewController: UIViewController {
         // Filter out duplicates in an array
         let DSArrayNoDuplicates:Array = Array(Set(DSArray))
         print(DSArrayNoDuplicates)
-        let DSDescArrayNoDuplicates:Array = Array(Set(DSDescArray))
-        print(DSDescArrayNoDuplicates)
+        let DSNameArrayNoDuplicates:Array = Array(Set(DSNameArray))
+        print(DSNameArrayNoDuplicates)
         
         /* UILayout2 */
         // add the scroll view to self.view
@@ -66,25 +67,8 @@ class BookmarksViewController: UIViewController {
             NSLog("Your NSUserDefaults are stored in this folder: %@/Preferences", folder)
         
         /* UILayout2 */
-        // Add card(s) algorithm
-        var ROW = 0
-        var COL = 0
-        var twoUp = 0
         for i in 0 ..< DSArrayNoDuplicates.count {
-            addCard(txt: "\(DSDescArrayNoDuplicates[i])", row: CGFloat(Int(ROW)), col: CGFloat(Int(COL)), imgName: "\(DSArrayNoDuplicates[i])")
-            // Using same row twice, then increment
-            if (twoUp < 1){
-                twoUp = twoUp + 1
-            } else {
-                ROW = ROW + 1
-                twoUp = 0
-            }
-            // Check Column is 1 or 0
-            if (COL == 0){
-                COL = COL + 1
-            } else {
-                COL = 0
-            }
+            addCard(txt: "\(DSNameArrayNoDuplicates[i])", imgName: "\(DSArrayNoDuplicates[i])")
         }
         /* UILayout2 end */
 
@@ -92,6 +76,30 @@ class BookmarksViewController: UIViewController {
 
     @IBAction private func backToPreviousView(_ sender: UIButton){
         self.dismiss(animated: true, completion: nil)
+    }
+    @IBAction private func btnAll(_ sender: UIButton){
+        btn.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
+        btn2.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        btn3.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        btn.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        btn2.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+        btn3.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+    }
+    @IBAction private func btnVitamins(_ sender: UIButton){
+        btn.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        btn2.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
+        btn3.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        btn.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+        btn2.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        btn3.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+    }
+    @IBAction private func btnCalcium(_ sender: UIButton){
+        btn.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        btn2.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
+        btn3.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
+        btn.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+        btn2.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+        btn3.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
     }
     
     /*
@@ -105,7 +113,7 @@ class BookmarksViewController: UIViewController {
     */
     
     /* UILayout2 */
-    private func addCard(txt: String, row: CGFloat, col: CGFloat, imgName: String){
+    private func addCard(txt: String, imgName: String){
         // View
         let view = UIView()
         view.heightAnchor.constraint(equalToConstant: 200).isActive = true
@@ -121,19 +129,19 @@ class BookmarksViewController: UIViewController {
         label.lineBreakMode = .byWordWrapping
         label.text = txt
         view.addSubview(label)
-        label.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 75).isActive = true
-        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        label.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50).isActive = true
+        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
         label.translatesAutoresizingMaskIntoConstraints = false
         // Image
         let imgSrc:UIImage = UIImage(named: imgName)!
         let img = UIImageView(image: imgSrc)
         view.addSubview(img)
-        img.widthAnchor.constraint(equalToConstant: 119).isActive = true
-        img.heightAnchor.constraint(equalToConstant: 125).isActive = true
-        img.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 105).isActive = true
-        img.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        img.widthAnchor.constraint(equalToConstant: 105).isActive = true
+        img.heightAnchor.constraint(equalToConstant: 105).isActive = true
+        img.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 110).isActive = true
+        img.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
         img.translatesAutoresizingMaskIntoConstraints = false
     }
     /* UILayout2 end */
@@ -175,23 +183,22 @@ extension BookmarksViewController{
         label.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 154).isActive = true
         label.topAnchor.constraint(equalTo: parent.topAnchor, constant: 100).isActive = true
         
-        let btn = UIButton()
         btn.frame = CGRect(x: 0, y: 0, width: 54, height: 30)
         btn.layer.cornerRadius = 15
         btn.layer.borderWidth = 3
         btn.layer.borderColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
+        btn.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
         btn.setTitleColor(UIColor(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         btn.setTitle("All", for: .normal)
         btn.titleLabel?.font =  UIFont(name: "HelveticaNeue-Bold", size: 15)
-//        btn.addTarget(self, action: #selector(backToPreviousView), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(btnAll), for: .touchUpInside)
         parent.addSubview(btn)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.widthAnchor.constraint(equalToConstant: 54).isActive = true
         btn.heightAnchor.constraint(equalToConstant: 30).isActive = true
         btn.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 31).isActive = true
         btn.topAnchor.constraint(equalTo: parent.topAnchor, constant: 190).isActive = true
-        
-        let btn2 = UIButton()
+
         btn2.frame = CGRect(x: 0, y: 0, width: 96, height: 30)
         btn2.layer.cornerRadius = 15
         btn2.layer.borderWidth = 3
@@ -200,7 +207,7 @@ extension BookmarksViewController{
         btn2.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         btn2.setTitle("Vitamins", for: .normal)
         btn2.titleLabel?.font =  UIFont(name: "HelveticaNeue-Bold", size: 15)
-//        btn.addTarget(self, action: #selector(buttonTouchDown), for: .touchUpInside)
+        btn2.addTarget(self, action: #selector(btnVitamins), for: .touchUpInside)
         parent.addSubview(btn2)
         btn2.translatesAutoresizingMaskIntoConstraints = false
         btn2.widthAnchor.constraint(equalToConstant: 96).isActive = true
@@ -208,7 +215,6 @@ extension BookmarksViewController{
         btn2.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 99).isActive = true
         btn2.topAnchor.constraint(equalTo: parent.topAnchor, constant: 190).isActive = true
         
-        let btn3 = UIButton()
         btn3.frame = CGRect(x: 0, y: 0, width: 91, height: 30)
         btn3.layer.cornerRadius = 15
         btn3.layer.borderWidth = 3
@@ -217,7 +223,7 @@ extension BookmarksViewController{
         btn3.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
         btn3.setTitle("Calcium", for: .normal)
         btn3.titleLabel?.font =  UIFont(name: "HelveticaNeue-Bold", size: 15)
-//        btn.addTarget(self, action: #selector(buttonTouchDown), for: .touchUpInside)
+        btn3.addTarget(self, action: #selector(btnCalcium), for: .touchUpInside)
         parent.addSubview(btn3)
         btn3.translatesAutoresizingMaskIntoConstraints = false
         btn3.widthAnchor.constraint(equalToConstant: 91).isActive = true
