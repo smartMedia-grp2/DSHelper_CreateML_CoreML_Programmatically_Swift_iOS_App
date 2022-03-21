@@ -61,7 +61,6 @@ class HomeViewController: UIViewController {
                 fatalError("Please update to iOS 13.0 or above")
             }
         }
-        print("showScanned OK")
     }
     /* JSON2 */
     // Use the two methods we created to reading JSON
@@ -174,7 +173,6 @@ class HomeViewController: UIViewController {
     /* imageClassification end */
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        print("preferredStatusBarStyle OK")
         return .lightContent
     }
     

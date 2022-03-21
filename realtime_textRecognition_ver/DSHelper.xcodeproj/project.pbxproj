@@ -9,18 +9,35 @@
 /* Begin PBXBuildFile section */
 		6E50AFDE27C360ED0068ADB1 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E50AFDD27C360ED0068ADB1 /* BookmarksViewController.swift */; };
 		6E50AFE027C361C30068ADB1 /* ScannedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E50AFDF27C361C30068ADB1 /* ScannedViewController.swift */; };
-		6EA84E5527CA995800E65A89 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA84E5427CA995800E65A89 /* Vision.framework */; };
-		6EA84E5927CA997D00E65A89 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA84E5827CA997D00E65A89 /* AVFoundation.framework */; };
 		6EBE0BEF27D5DCAB004A3FA1 /* DS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBE0BEE27D5DCAB004A3FA1 /* DS.swift */; };
 		6EBE0BF127D5DCD9004A3FA1 /* DSs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBE0BF027D5DCD9004A3FA1 /* DSs.swift */; };
 		6ED8438D27E7A1AB000913DF /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED8438C27E7A1AB000913DF /* StringUtils.swift */; };
 		6ED96CCC27D3A4DB007F34D8 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 6ED96CCB27D3A4DB007F34D8 /* data.json */; };
+		6EE1754327E8B7D300DEBC38 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA84E5827CA997D00E65A89 /* AVFoundation.framework */; };
+		6EE1754427E8B7D300DEBC38 /* AVFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA84E5827CA997D00E65A89 /* AVFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6EE1754627E8B7D500DEBC38 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA84E5427CA995800E65A89 /* Vision.framework */; };
+		6EE1754727E8B7D500DEBC38 /* Vision.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6EA84E5427CA995800E65A89 /* Vision.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F4FB444D21A7923100939357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FB444C21A7923100939357 /* AppDelegate.swift */; };
 		F4FB445221A7923100939357 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4FB445021A7923100939357 /* Main.storyboard */; };
 		F4FB445421A7923300939357 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4FB445321A7923300939357 /* Assets.xcassets */; };
 		F4FB445721A7923300939357 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4FB445521A7923300939357 /* LaunchScreen.storyboard */; };
 		F4FB445F21A7926C00939357 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FB445E21A7926C00939357 /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6EE1754527E8B7D300DEBC38 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6EE1754727E8B7D500DEBC38 /* Vision.framework in Embed Frameworks */,
+				6EE1754427E8B7D300DEBC38 /* AVFoundation.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6E50AFDD27C360ED0068ADB1 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
@@ -45,8 +62,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EA84E5527CA995800E65A89 /* Vision.framework in Frameworks */,
-				6EA84E5927CA997D00E65A89 /* AVFoundation.framework in Frameworks */,
+				6EE1754627E8B7D500DEBC38 /* Vision.framework in Frameworks */,
+				6EE1754327E8B7D300DEBC38 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +133,7 @@
 				F4FB444521A7923100939357 /* Sources */,
 				F4FB444621A7923100939357 /* Frameworks */,
 				F4FB444721A7923100939357 /* Resources */,
+				6EE1754527E8B7D300DEBC38 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -340,7 +358,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hkdi.ddm.laukapui.DSHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hkdi.ddm.groupTwo.DSHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -358,7 +376,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hkdi.ddm.laukapui.DSHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hkdi.ddm.groupTwo.DSHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
